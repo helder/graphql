@@ -966,7 +966,7 @@ extern class RequestError extends Exception implements ClientAware {
 
 @:native('GraphQL\\Server\\ServerConfig')
 extern class ServerConfig {
-  public static function create(?config: Array<Dynamic>): ServerConfig;
+  public static function create(?config: Dynamic): ServerConfig;
   public function setSchema(schema: Schema): ServerConfig;
   public function setContext(context: Dynamic): ServerConfig;
   public function setRootValue(rootValue: Dynamic): ServerConfig;
@@ -1048,7 +1048,7 @@ extern class Directive {
   public var args: Array<FieldArgument>;
   public var astNode: Dynamic;
   public var config: Dynamic;
-  public function new(config: Array<Dynamic>): Void;
+  public function new(config: Dynamic): Void;
   public static function includeDirective(): Directive;
   public static function getInternalDirectives(): Array<Directive>;
   public static function skipDirective(): Directive;
@@ -1079,7 +1079,7 @@ extern class EnumValueDefinition {
   public var description: Dynamic;
   public var astNode: Dynamic;
   public var config: Dynamic;
-  public function new(config: Array<Dynamic>): Void;
+  public function new(config: Dynamic): Void;
   public function isDeprecated(): Bool;
 }
 
@@ -1091,7 +1091,7 @@ extern class FieldArgument {
   public var astNode: Dynamic;
   public var config: Dynamic;
   public function new(def: Array<Dynamic>): Void;
-  public static function createMap(config: Array<Dynamic>): Array<FieldArgument>;
+  public static function createMap(config: Dynamic): Array<FieldArgument>;
   public function getType(): InputType;
   public function defaultValueExists(): Bool;
   public function assertValid(parentField: FieldDefinition,
@@ -1110,7 +1110,7 @@ extern class FieldDefinition {
   public var astNode: Dynamic;
   public var config: Dynamic;
   public var type: Dynamic;
-  private function new(config: Array<Dynamic>): Void;
+  private function new(config: Dynamic): Void;
   public static function defineFieldMap(type: Type, fields: Dynamic): Dynamic;
   public static function create(field: Array<Dynamic>): FieldDefinition;
   public static function defaultComplexity(childrenComplexity: Int): Dynamic;
@@ -1159,7 +1159,7 @@ extern class InputObjectField {
 extern class InputObjectType implements InputType implements NullableType implements NamedType {
   public var astNode: Dynamic;
   public var extensionASTNodes: Dynamic;
-  public function new(config: Array<Dynamic>): Void;
+  public function new(config: Dynamic): Void;
   public function getField(name: String): InputObjectField;
   public function getFields(): Array<InputObjectField>;
   public function assertValid(): Dynamic;
@@ -1173,7 +1173,7 @@ extern class InterfaceType implements AbstractType implements OutputType
     implements CompositeType implements NullableType implements NamedType {
   public var astNode: Dynamic;
   public var extensionASTNodes: Dynamic;
-  public function new(config: Array<Dynamic>): Void;
+  public function new(config: Dynamic): Void;
   public static function assertInterfaceType(type: Dynamic): InterfaceType;
   public function getField(name: String): FieldDefinition;
   public function hasField(name: String): Bool;
@@ -1284,7 +1284,7 @@ extern class ScalarType implements OutputType implements InputType
     implements LeafType implements NullableType implements NamedType {
   public var astNode: Dynamic;
   public var extensionASTNodes: Dynamic;
-  public function new(?config: Array<Dynamic>): Void;
+  public function new(?config: Dynamic): Void;
 
   public function serialize(value: Dynamic): Dynamic;
   public function parseValue(value: Dynamic): Dynamic;
@@ -1314,11 +1314,11 @@ extern class Type implements JsonSerializable<Dynamic> {
   public var astNode: Dynamic;
   public var config: Dynamic;
   public var extensionASTNodes: Dynamic;
-  public static function id(): IDType;
-  public static function string(): StringType;
-  public static function boolean(): BooleanType;
-  public static function int(): IntType;
-  public static function float(): FloatType;
+  public static function id(): Dynamic;
+  public static function string(): Dynamic;
+  public static function boolean(): Dynamic;
+  public static function int(): Dynamic;
+  public static function float(): Dynamic;
   public static function listOf(wrappedType: Dynamic): ListOfType;
   public static function nonNull(wrappedType: NullableType): NonNull;
   public static function isBuiltInType(type: Type): Bool;

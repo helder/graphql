@@ -16,25 +16,18 @@ typedef GraphQLFieldConfigMap<T, T2, T3> = Dynamic;
 typedef GraphQLFieldMap<T, T2> = Dynamic;
 typedef GraphQLOutputType = Dynamic;
 typedef GraphQLAbstractType = Dynamic;
+
 typedef Path = {
   prev: Path,
   key: EitherType<String, Float>
 };
-typedef GraphQLFieldResolver<
-  TSource,
-  TContext,
-  TArgs
-> = (
-  source: TSource,
-  args: TArgs,
-  context: TContext,
-  info: GraphQLResolveInfo
-) -> Dynamic;
-typedef GraphQLIsTypeOfFn<TSource, TContext> = (
-  source: TSource,
-  context: TContext,
-  info: GraphQLResolveInfo
-) -> PromiseOrValue<Bool>;
+
+typedef GraphQLFieldResolver<TSource, TContext, TArgs> = (source: TSource,
+  args: TArgs, context: TContext, info: GraphQLResolveInfo) -> Dynamic;
+
+typedef GraphQLIsTypeOfFn<TSource, TContext> = (source: TSource,
+  context: TContext, info: GraphQLResolveInfo) -> PromiseOrValue<Bool>;
+
 typedef GraphQLInputType = Dynamic;
 typedef GraphQLDirective = Dynamic;
 typedef GraphQLInputFieldConfigMap = Dynamic;
@@ -46,6 +39,7 @@ typedef GraphQLWrappingType = Dynamic;
 typedef GraphQLFieldConfigArgumentMap = Dynamic;
 typedef TypeMap = Dynamic;
 typedef GraphQLNamedType = Dynamic;
+
 typedef ASTSourceLocation = {
   var line: Float;
   var column: Float;
@@ -66,7 +60,6 @@ typedef TypeNode = String;
 
 // languae/ast
 typedef Location = {
-  var readonly: Dynamic;
   var start: Float;
   var end: Float;
   var startToken: Token;
@@ -75,7 +68,6 @@ typedef Location = {
 };
 
 typedef Token = {
-  var readonly: Dynamic;
   var kind: TokenKindEnum;
   var start: Float;
   var end: Float;
@@ -133,7 +125,6 @@ typedef ASTKindToNode = {
 };
 
 typedef NameNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -141,20 +132,18 @@ typedef NameNode = {
 };
 
 typedef DocumentNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
   var definitions: ReadonlyArray<DefinitionNode>;
 };
 
-typedef DefinitionNode = Dynamic; 
-typedef OperationTypeNode = Dynamic; 
-typedef ValueNode = Dynamic; 
-typedef SelectionNode = Dynamic; 
+typedef DefinitionNode = Dynamic;
+typedef OperationTypeNode = Dynamic;
+typedef ValueNode = Dynamic;
+typedef SelectionNode = Dynamic;
 
 typedef OperationDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -169,7 +158,6 @@ typedef OperationDefinitionNode = {
 };
 
 typedef VariableDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -182,7 +170,6 @@ typedef VariableDefinitionNode = {
 };
 
 typedef VariableNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -197,7 +184,6 @@ typedef SelectionSetNode = {
 };
 
 typedef FieldNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -213,7 +199,6 @@ typedef FieldNode = {
 };
 
 typedef ArgumentNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -222,7 +207,6 @@ typedef ArgumentNode = {
 };
 
 typedef FragmentSpreadNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -232,7 +216,6 @@ typedef FragmentSpreadNode = {
 };
 
 typedef InlineFragmentNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -244,7 +227,6 @@ typedef InlineFragmentNode = {
 };
 
 typedef FragmentDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -258,7 +240,6 @@ typedef FragmentDefinitionNode = {
 };
 
 typedef IntValueNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -266,7 +247,6 @@ typedef IntValueNode = {
 };
 
 typedef FloatValueNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -274,7 +254,6 @@ typedef FloatValueNode = {
 };
 
 typedef StringValueNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -284,7 +263,6 @@ typedef StringValueNode = {
 };
 
 typedef BooleanValueNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -292,14 +270,12 @@ typedef BooleanValueNode = {
 };
 
 typedef NullValueNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
 };
 
 typedef EnumValueNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -307,7 +283,6 @@ typedef EnumValueNode = {
 };
 
 typedef ListValueNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -315,7 +290,6 @@ typedef ListValueNode = {
 };
 
 typedef ObjectValueNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -323,7 +297,6 @@ typedef ObjectValueNode = {
 };
 
 typedef ObjectFieldNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -332,7 +305,6 @@ typedef ObjectFieldNode = {
 };
 
 typedef DirectiveNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -342,7 +314,6 @@ typedef DirectiveNode = {
 };
 
 typedef NamedTypeNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -350,7 +321,6 @@ typedef NamedTypeNode = {
 };
 
 typedef ListTypeNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -358,7 +328,6 @@ typedef ListTypeNode = {
 };
 
 typedef NonNullTypeNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -366,7 +335,6 @@ typedef NonNullTypeNode = {
 };
 
 typedef SchemaDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -376,7 +344,6 @@ typedef SchemaDefinitionNode = {
 };
 
 typedef OperationTypeDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -385,7 +352,6 @@ typedef OperationTypeDefinitionNode = {
 };
 
 typedef ScalarTypeDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -397,7 +363,6 @@ typedef ScalarTypeDefinitionNode = {
 };
 
 typedef ObjectTypeDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -413,7 +378,6 @@ typedef ObjectTypeDefinitionNode = {
 };
 
 typedef FieldDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -428,7 +392,6 @@ typedef FieldDefinitionNode = {
 };
 
 typedef InputValueDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -443,7 +406,6 @@ typedef InputValueDefinitionNode = {
 };
 
 typedef InterfaceTypeDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -457,7 +419,6 @@ typedef InterfaceTypeDefinitionNode = {
 };
 
 typedef UnionTypeDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -471,7 +432,6 @@ typedef UnionTypeDefinitionNode = {
 };
 
 typedef EnumTypeDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -485,7 +445,6 @@ typedef EnumTypeDefinitionNode = {
 };
 
 typedef EnumValueDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -497,7 +456,6 @@ typedef EnumValueDefinitionNode = {
 };
 
 typedef InputObjectTypeDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -511,7 +469,6 @@ typedef InputObjectTypeDefinitionNode = {
 };
 
 typedef DirectiveDefinitionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -525,15 +482,14 @@ typedef DirectiveDefinitionNode = {
 };
 
 typedef SchemaExtensionNode = {
-	var kind : String;
-	@:optional
-	var loc : Location;
+  var kind: String;
+  @:optional
+  var loc: Location;
   @:optional var directives: ReadonlyArray<DirectiveNode>;
   @:optional var operationTypes: ReadonlyArray<OperationTypeDefinitionNode>;
 };
 
 typedef ScalarTypeExtensionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -543,7 +499,6 @@ typedef ScalarTypeExtensionNode = {
 };
 
 typedef ObjectTypeExtensionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -557,7 +512,6 @@ typedef ObjectTypeExtensionNode = {
 };
 
 typedef InterfaceTypeExtensionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -569,7 +523,6 @@ typedef InterfaceTypeExtensionNode = {
 };
 
 typedef UnionTypeExtensionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -581,7 +534,6 @@ typedef UnionTypeExtensionNode = {
 };
 
 typedef EnumTypeExtensionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -593,7 +545,6 @@ typedef EnumTypeExtensionNode = {
 };
 
 typedef InputObjectTypeExtensionNode = {
-  var readonly: Dynamic;
   var kind: String;
   @:optional
   var loc: Location;
@@ -611,7 +562,6 @@ interface GraphQLNullableType {}
 typedef Maybe<T> = Null<T>;
 
 interface GraphQLList<T:(GraphQLType) > extends GraphQLNullableType {
-  var readonly: Dynamic;
   var ofType: T;
   function toString(): String;
   function toJSON(): String;
@@ -621,7 +571,6 @@ interface GraphQLList<T:(GraphQLType) > extends GraphQLNullableType {
 typedef _GraphQLList<T:(GraphQLType)> = Constructible<GraphQLList<T>>;
 
 typedef GraphQLNonNull<T:(GraphQLNullableType)> = {
-  var readonly: Dynamic;
   var ofType: T;
   function toString(): String;
   function toJSON(): String;
@@ -708,7 +657,6 @@ typedef GraphQLObjectTypeConfig<TSource, TContext, TArgs> = {
 };
 
 typedef GraphQLResolveInfo = {
-  var readonly: Dynamic;
   var fieldName: String;
   var fieldNodes: ReadonlyArray<FieldNode>;
   var returnType: GraphQLOutputType;
@@ -796,21 +744,10 @@ extern class GraphQLInterfaceType implements GraphQLType implements GraphQLNulla
   function inspect(): String;
 }
 
-typedef GraphQLTypeResolver<
-  TSource,
-  TContext,
-  TArgs
-> = (
-  value: TSource,
-  context: TContext,
-  info: GraphQLResolveInfo,
-  abstractType: GraphQLAbstractType
-) -> PromiseOrValue<
-  Maybe<
-  EitherType<
-  GraphQLObjectType, String>
-  >
->;
+typedef GraphQLTypeResolver<TSource, TContext, TArgs> = (value: TSource,
+  context: TContext, info: GraphQLResolveInfo,
+  abstractType: GraphQLAbstractType) ->
+  PromiseOrValue<Maybe<EitherType<GraphQLObjectType, String>>>;
 
 typedef GraphQLInterfaceTypeConfig<TSource, TContext, TArgs> = {
   var name: String;
@@ -831,7 +768,7 @@ typedef GraphQLInterfaceTypeConfig<TSource, TContext, TArgs> = {
 extern class GraphQLUnionType implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
-  var resolveType: Maybe<GraphQLTypeResolver<Dynamic,Dynamic , Dynamic>>;
+  var resolveType: Maybe<GraphQLTypeResolver<Dynamic, Dynamic, Dynamic>>;
   var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
   var astNode: Maybe<UnionTypeDefinitionNode>;
   var extensionASTNodes: Maybe<ReadonlyArray<UnionTypeExtensionNode>>;
@@ -1015,49 +952,104 @@ extern class DefinitionTopLevel {
 
 @:jsRequire('graphql/type/schema', 'GraphQLSchema')
 extern class GraphQLSchema {
-	var extensions : Maybe<Readonly<Record<String, Dynamic>>>;
-	var astNode : Maybe<SchemaDefinitionNode>;
-	var extensionASTNodes : Maybe<ReadonlyArray<SchemaExtensionNode>>;
-	function new(config:GraphQLSchemaConfig):Void;
-	function getQueryType():Maybe<GraphQLObjectType>;
-	function getMutationType():Maybe<GraphQLObjectType>;
-	function getSubscriptionType():Maybe<GraphQLObjectType>;
-	function getTypeMap():TypeMap;
-	function getType(name:String):Maybe<GraphQLNamedType>;
-	function getPossibleTypes(abstractType:GraphQLAbstractType):ReadonlyArray<GraphQLObjectType>;
-	function isPossibleType(abstractType:GraphQLAbstractType, possibleType:GraphQLObjectType):Bool;
-	function getDirectives():ReadonlyArray<GraphQLDirective>;
-	function getDirective(name:String):Maybe<GraphQLDirective>;
-	function toConfig():Dynamic;
+  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var astNode: Maybe<SchemaDefinitionNode>;
+  var extensionASTNodes: Maybe<ReadonlyArray<SchemaExtensionNode>>;
+  function new(config: GraphQLSchemaConfig): Void;
+  function getQueryType(): Maybe<GraphQLObjectType>;
+  function getMutationType(): Maybe<GraphQLObjectType>;
+  function getSubscriptionType(): Maybe<GraphQLObjectType>;
+  function getTypeMap(): TypeMap;
+  function getType(name: String): Maybe<GraphQLNamedType>;
+  function getPossibleTypes(abstractType: GraphQLAbstractType): ReadonlyArray<GraphQLObjectType>;
+  function isPossibleType(abstractType: GraphQLAbstractType,
+    possibleType: GraphQLObjectType): Bool;
+  function getDirectives(): ReadonlyArray<GraphQLDirective>;
+  function getDirective(name: String): Maybe<GraphQLDirective>;
+  function toConfig(): Dynamic;
 }
 
 typedef GraphQLSchemaValidationOptions = {
-	@:optional
-	var assumeValid : Bool;
-	@:optional
-	var allowedLegacyNames : Maybe<ReadonlyArray<String>>;
+  @:optional
+  var assumeValid: Bool;
+  @:optional
+  var allowedLegacyNames: Maybe<ReadonlyArray<String>>;
 };
+
 typedef GraphQLSchemaConfig = {
-	>GraphQLSchemaValidationOptions,
-	var query : Maybe<GraphQLObjectType>;
-	@:optional
-	var mutation : Maybe<GraphQLObjectType>;
-	@:optional
-	var subscription : Maybe<GraphQLObjectType>;
-	@:optional
-	var types : Maybe<Array<GraphQLNamedType>>;
-	@:optional
-	var directives : Maybe<Array<GraphQLDirective>>;
-	@:optional
-	var extensions : Maybe<Readonly<Record<String, Dynamic>>>;
-	@:optional
-	var astNode : Maybe<SchemaDefinitionNode>;
-	@:optional
-	var extensionASTNodes : Maybe<ReadonlyArray<SchemaExtensionNode>>;
+  > GraphQLSchemaValidationOptions,
+  var query: Maybe<GraphQLObjectType>;
+  @:optional
+  var mutation: Maybe<GraphQLObjectType>;
+  @:optional
+  var subscription: Maybe<GraphQLObjectType>;
+  @:optional
+  var types: Maybe<Array<GraphQLNamedType>>;
+  @:optional
+  var directives: Maybe<Array<GraphQLDirective>>;
+  @:optional
+  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  @:optional
+  var astNode: Maybe<SchemaDefinitionNode>;
+  @:optional
+  var extensionASTNodes: Maybe<ReadonlyArray<SchemaExtensionNode>>;
 };
 
 @:jsRequire('graphql/type/schema')
 extern class SchemaTopLevel {
-	static function isSchema(schema:Dynamic):Bool;
-	static function assertSchema(schema:Dynamic):GraphQLSchema;
+  static function isSchema(schema: Dynamic): Bool;
+  static function assertSchema(schema: Dynamic): GraphQLSchema;
+}
+
+typedef GraphQLError = Dynamic;
+
+typedef ExecutionContext = {
+  var schema: GraphQLSchema;
+  var fragments: {};
+  var rootValue: Dynamic;
+  var contextValue: Dynamic;
+  var operation: OperationDefinitionNode;
+  var variableValues: {};
+  var fieldResolver: GraphQLFieldResolver<Dynamic, Dynamic, Dynamic>;
+  var errors: Array<GraphQLError>;
+};
+
+typedef ExecutionResultDataDefault = {};
+
+typedef ExecutionResult<TData> = {
+  @:optional
+  var errors: ReadonlyArray<GraphQLError>;
+  @:optional
+  var data: TData;
+};
+
+@:jsRequire('graphql/execution')
+extern class ExecuteTopLevel {
+  static function execute<TData>(schema: GraphQLSchema,
+    document: DocumentNode, ?rootValue: Dynamic, ?contextValue: Dynamic,
+    ?variableValues: Maybe<{}>, ?operationName: Maybe<String>,
+    ?fieldResolver: Maybe<GraphQLFieldResolver<Dynamic, Dynamic, Dynamic>>,
+    ?typeResolver: Maybe<GraphQLTypeResolver<Dynamic, Dynamic,
+      Dynamic>>): PromiseOrValue<ExecutionResult<TData>>;
+}
+
+typedef ParseOptions = {
+  @:optional
+  var noLocation: Bool;
+  @:optional
+  var allowLegacySDLEmptyFields: Bool;
+  @:optional
+  var allowLegacySDLImplementsInterfaces: Bool;
+  @:optional
+  var experimentalFragmentVariables: Bool;
+};
+
+@:jsRequire('graphql/language/parser')
+extern class ParserTopLevel {
+  static function parse(source: haxe.extern.EitherType<String, Source>,
+    ?options: ParseOptions): DocumentNode;
+  static function parseValue(source: haxe.extern.EitherType<String, Source>,
+    ?options: ParseOptions): ValueNode;
+  static function parseType(source: haxe.extern.EitherType<String, Source>,
+    ?options: ParseOptions): TypeNode;
 }

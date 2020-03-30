@@ -1,16 +1,35 @@
 package tests;
 
+import graphql.Language;
+import graphql.GraphQL;
 import graphql.Type;
-import graphql.type.GraphQLObjectType;
 import tink.unit.Assert.*;
 
 class TestExecute {
   public function new() {}
 
   public function testExecute() {
-    var objType = new GraphQLObjectType({
-      name: 'query'
+    final query = new GraphQLObjectType({
+      name: 'Query',
+      fields: {
+        hello: {
+          type: Type.string(),
+          description: 'Greeting',
+          args: {
+            name: {
+              type: Type.string()
+            }
+          },
+          resolve: (value, args) -> args.name
+        }
+      }
     });
-    return assert(true);
+    final schema = new GraphQLSchema({
+      query: query
+    });
+    final document = Language.parse('{greeting:hello(name:"me")}');
+    return GraphQL.execute(schema, document, null).next(res -> {
+      return assert(res.data.greeting == 'me');
+    });
   }
 }
