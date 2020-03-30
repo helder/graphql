@@ -1,0 +1,9 @@
+-lib tink_unittest
+
+-cp src
+-cp tests
+
+-dce full
+-D ansi
+-D coreApi
+-main tests.Run

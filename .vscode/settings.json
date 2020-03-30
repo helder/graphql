@@ -1,0 +1,9 @@
+{
+  "haxe.configurations": [
+    ["tests.hxml", "-js", "bin/tests.js"],
+    ["tests.hxml", "-php", "bin/php"]
+  ],
+  "[haxe]": {
+    "editor.formatOnSave": true
+  }
+}

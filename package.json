@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "postinstall": "composer self-update && composer install",
+    "test:php": "haxe tests.hxml -php bin/php && cross-env ANSICON=true php bin/php/index.php",
+    "test:node": "haxe tests.hxml -lib hxnodejs -js bin/tests.js && cross-env ANSICON=true node bin/tests.js"
+  },
+  "devDependencies": {
+    "@codeurs/php-bin": "^0.0.4",
+    "cross-env": "^7.0.2",
+    "getcomposer": "^1.3.3",
+    "graphql": "^14.6.0",
+    "lix": "^15.8.6"
+  }
+}
