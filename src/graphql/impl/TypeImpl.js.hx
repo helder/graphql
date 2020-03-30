@@ -1,6 +1,7 @@
 package graphql.impl;
 
 import graphql.impl.Js;
+import graphql.Type.GraphQLType;
 
 abstract GraphQLSchemaImpl(GraphQLSchema) {
   inline public function new(config: graphql.Type.GraphQLSchemaConfig)
@@ -27,9 +28,24 @@ abstract GraphQLUnionTypeImpl(GraphQLUnionType) {
     this = new GraphQLUnionType((config : Dynamic));
 }
 
+abstract GraphQLEnumTypeImpl(GraphQLEnumType) {
+  inline public function new(config: graphql.Type.GraphQLEnumTypeConfig)
+    this = new GraphQLEnumType((config : Dynamic));
+}
+
 abstract GraphQLInputObjectTypeImpl(GraphQLInputObjectType) {
   inline public function new(config: graphql.Type.GraphQLInputObjectTypeConfig)
     this = new GraphQLInputObjectType((config : Dynamic));
+}
+
+abstract GraphQLNonNullImpl<T:GraphQLType>(GraphQLNonNull<T>) {
+  inline public function new(type: GraphQLType)
+    this = cast new GraphQLNonNull(type);
+}
+
+abstract GraphQLListImpl<T:GraphQLType>(GraphQLList<T>) {
+  inline public function new(type: T)
+    this = new GraphQLList(type);
 }
 
 @:jsRequire('graphql/type')

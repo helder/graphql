@@ -3,6 +3,7 @@ package graphql.impl;
 import php.*;
 import graphql.impl.Php;
 import graphql.Type;
+import graphql.Type.GraphQLType;
 
 /*class Tools {
   public static function convert(value: Dynamic): Dynamic {
@@ -51,6 +52,21 @@ abstract GraphQLUnionTypeImpl(UnionType) {
 abstract GraphQLInputObjectTypeImpl(ObjectType) {
   inline public function new(config: GraphQLInputObjectTypeConfig)
     this = new ObjectType(config);
+}
+
+abstract GraphQLEnumTypeImpl(EnumType) {
+  inline public function new(config: GraphQLEnumTypeConfig)
+    this = new EnumType(config);
+}
+
+abstract GraphQLNonNullImpl<T:GraphQLType>(NonNull) {
+  inline public function new(type: T)
+    this = new NonNull(cast type);
+}
+
+abstract GraphQLListImpl<T:GraphQLType>(ListOfType) {
+  inline public function new(type: T)
+    this = new ListOfType(cast type);
 }
 
 typedef TypeImpl = graphql.impl.Php.Type;

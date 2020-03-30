@@ -9,7 +9,7 @@ import haxe.extern.EitherType;
 typedef Undefined = Dynamic;
 typedef ReadonlyArray<T> = ReadOnlyArray<T>;
 typedef Readonly<T> = T;
-typedef Record<K, V> = DynamicAccess<V>;
+typedef Record_<K, V> = DynamicAccess<V>;
 typedef Thunk<T> = EitherType<(() -> T), T>;
 typedef PromiseOrValue<T> = EitherType<Promise<T>, T>;
 typedef GraphQLFieldConfigMap<T, T2, T3> = Dynamic;
@@ -561,7 +561,8 @@ interface GraphQLType {}
 interface GraphQLNullableType {}
 typedef Maybe<T> = Null<T>;
 
-interface GraphQLList<T:(GraphQLType) > extends GraphQLNullableType {
+extern class GraphQLList<T /*:(GraphQLType)*/> {
+  function new(type: T): Void;
   var ofType: T;
   function toString(): String;
   function toJSON(): String;
@@ -570,12 +571,13 @@ interface GraphQLList<T:(GraphQLType) > extends GraphQLNullableType {
 
 typedef _GraphQLList<T:(GraphQLType)> = Constructible<GraphQLList<T>>;
 
-typedef GraphQLNonNull<T:(GraphQLNullableType)> = {
+extern class GraphQLNonNull<T /*:(GraphQLNullableType)*/> {
+  function new(type: T): Void;
   var ofType: T;
   function toString(): String;
   function toJSON(): String;
   function inspect(): String;
-};
+}
 
 typedef _GraphQLNonNull<T:(GraphQLNullableType)> = Constructible<GraphQLNonNull<T>>;
 
@@ -586,7 +588,7 @@ extern class GraphQLScalarType implements GraphQLType implements GraphQLNullable
   var serialize: GraphQLScalarSerializer<Dynamic>;
   var parseValue: GraphQLScalarValueParser<Dynamic>;
   var parseLiteral: GraphQLScalarLiteralParser<Dynamic>;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   var astNode: Maybe<ScalarTypeDefinitionNode>;
   var extensionASTNodes: Maybe<ReadonlyArray<ScalarTypeExtensionNode>>;
   function new(config: GraphQLScalarTypeConfig<Dynamic, Dynamic>): Void;
@@ -614,7 +616,7 @@ typedef GraphQLScalarTypeConfig<TInternal, TExternal> = {
   @:optional
   var parseLiteral: GraphQLScalarLiteralParser<TInternal>;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<ScalarTypeDefinitionNode>;
   @:optional
@@ -626,7 +628,7 @@ extern class GraphQLObjectType /*<TSource, TContext, TArgs>*/ implements GraphQL
   var name: String;
   var description: Maybe<String>;
   var isTypeOf: Maybe<GraphQLIsTypeOfFn<Dynamic, Dynamic>>;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   var astNode: Maybe<ObjectTypeDefinitionNode>;
   var extensionASTNodes: Maybe<ReadonlyArray<ObjectTypeExtensionNode>>;
   function new(config: GraphQLObjectTypeConfig<Dynamic, Dynamic,
@@ -649,7 +651,7 @@ typedef GraphQLObjectTypeConfig<TSource, TContext, TArgs> = {
   @:optional
   var isTypeOf: Maybe<GraphQLIsTypeOfFn<TSource, TContext>>;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<ObjectTypeDefinitionNode>;
   @:optional
@@ -682,7 +684,7 @@ typedef GraphQLFieldConfig<TSource, TContext, TArgs> = {
   @:optional
   var deprecationReason: Maybe<String>;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<FieldDefinitionNode>;
 };
@@ -694,7 +696,7 @@ typedef GraphQLArgumentConfig = {
   @:optional
   var defaultValue: Dynamic;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<InputValueDefinitionNode>;
 };
@@ -712,7 +714,7 @@ typedef GraphQLField<TSource, TContext, TArgs> = {
   var isDeprecated: Bool;
   @:optional
   var deprecationReason: Maybe<String>;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<FieldDefinitionNode>;
 };
@@ -722,7 +724,7 @@ typedef GraphQLArgument = {
   var description: Maybe<String>;
   var type: GraphQLInputType;
   var defaultValue: Dynamic;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   var astNode: Maybe<InputValueDefinitionNode>;
 };
 
@@ -731,7 +733,7 @@ extern class GraphQLInterfaceType implements GraphQLType implements GraphQLNulla
   var name: String;
   var description: Maybe<String>;
   var resolveType: Maybe<GraphQLTypeResolver<Dynamic, Dynamic, Dynamic>>;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<InterfaceTypeDefinitionNode>;
   var extensionASTNodes: Maybe<ReadonlyArray<InterfaceTypeExtensionNode>>;
@@ -757,7 +759,7 @@ typedef GraphQLInterfaceTypeConfig<TSource, TContext, TArgs> = {
   @:optional
   var resolveType: Maybe<GraphQLTypeResolver<TSource, TContext, TArgs>>;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<InterfaceTypeDefinitionNode>;
   @:optional
@@ -769,7 +771,7 @@ extern class GraphQLUnionType implements GraphQLType implements GraphQLNullableT
   var name: String;
   var description: Maybe<String>;
   var resolveType: Maybe<GraphQLTypeResolver<Dynamic, Dynamic, Dynamic>>;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   var astNode: Maybe<UnionTypeDefinitionNode>;
   var extensionASTNodes: Maybe<ReadonlyArray<UnionTypeExtensionNode>>;
   function new(config: GraphQLUnionTypeConfig<Dynamic, Dynamic>): Void;
@@ -788,7 +790,7 @@ typedef GraphQLUnionTypeConfig<TSource, TContext> = {
   @:optional
   var resolveType: Maybe<GraphQLTypeResolver<TSource, TContext, Dynamic>>;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<UnionTypeDefinitionNode>;
   @:optional
@@ -799,7 +801,7 @@ typedef GraphQLUnionTypeConfig<TSource, TContext> = {
 extern class GraphQLEnumType implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   var astNode: Maybe<EnumTypeDefinitionNode>;
   var extensionASTNodes: Maybe<ReadonlyArray<EnumTypeExtensionNode>>;
   function new(config: GraphQLEnumTypeConfig): Void;
@@ -821,7 +823,7 @@ typedef GraphQLEnumTypeConfig = {
   var description: Maybe<String>;
   var values: GraphQLEnumValueConfigMap;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<EnumTypeDefinitionNode>;
   @:optional
@@ -836,7 +838,7 @@ typedef GraphQLEnumValueConfig = {
   @:optional
   var deprecationReason: Maybe<String>;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<EnumValueDefinitionNode>;
 };
@@ -848,7 +850,7 @@ typedef GraphQLEnumValue = {
   @:optional
   var isDeprecated: Bool;
   var deprecationReason: Maybe<String>;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<EnumValueDefinitionNode>;
 };
@@ -857,7 +859,7 @@ typedef GraphQLEnumValue = {
 extern class GraphQLInputObjectType implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   var astNode: Maybe<InputObjectTypeDefinitionNode>;
   var extensionASTNodes: Maybe<ReadonlyArray<InputObjectTypeExtensionNode>>;
   function new(config: GraphQLInputObjectTypeConfig): Void;
@@ -874,7 +876,7 @@ typedef GraphQLInputObjectTypeConfig = {
   var description: Maybe<String>;
   var fields: Thunk<GraphQLInputFieldConfigMap>;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<InputObjectTypeDefinitionNode>;
   @:optional
@@ -888,7 +890,7 @@ typedef GraphQLInputFieldConfig = {
   @:optional
   var defaultValue: Dynamic;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<InputValueDefinitionNode>;
 };
@@ -900,7 +902,7 @@ typedef GraphQLInputField = {
   var type: GraphQLInputType;
   @:optional
   var defaultValue: Dynamic;
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<InputValueDefinitionNode>;
 };
@@ -952,7 +954,7 @@ extern class DefinitionTopLevel {
 
 @:jsRequire('graphql/type/schema', 'GraphQLSchema')
 extern class GraphQLSchema {
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   var astNode: Maybe<SchemaDefinitionNode>;
   var extensionASTNodes: Maybe<ReadonlyArray<SchemaExtensionNode>>;
   function new(config: GraphQLSchemaConfig): Void;
@@ -988,7 +990,7 @@ typedef GraphQLSchemaConfig = {
   @:optional
   var directives: Maybe<Array<GraphQLDirective>>;
   @:optional
-  var extensions: Maybe<Readonly<Record<String, Dynamic>>>;
+  var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   @:optional
   var astNode: Maybe<SchemaDefinitionNode>;
   @:optional

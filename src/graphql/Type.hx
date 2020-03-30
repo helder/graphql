@@ -10,6 +10,9 @@ import graphql.impl.Tools;
 typedef GraphQLOutputType = Dynamic;
 typedef Thunk<T> = EitherType<(() -> T), T>;
 typedef GraphQLFieldConfigArgumentMap = Record<GraphQLArgumentConfig>;
+@:coreType abstract GraphQLType from GraphQLObjectType
+  from GraphQLInterfaceType from GraphQLUnionType
+  from GraphQLScalarType<Dynamic> from GraphQLInputObjectType {}
 
 typedef GraphQLResolveInfo = Struct<{
   final fieldName: String;
@@ -111,6 +114,28 @@ typedef GraphQLInputFieldConfig = Struct<{
   ?defaultValue: Dynamic
 }>;
 
+// https://graphql.org/graphql-js/type/#graphqlenumtype
+typedef GraphQLEnumType = GraphQLEnumTypeImpl;
+
+typedef GraphQLEnumTypeConfig = Struct<{
+  name: String,
+  ?description: String,
+  values: Record<GraphQLEnumValueConfig>
+}>;
+
+typedef GraphQLEnumValueConfig = Struct<{
+  ?value: Dynamic,
+  ?description: String
+}>;
+
+// https://graphql.org/graphql-js/type/#graphqlnonnull
+
+typedef GraphQLNonNull<T:GraphQLType> = GraphQLNonNullImpl<T>;
+
+// https://graphql.org/graphql-js/type/#graphqllist
+
+typedef GraphQLList<T:GraphQLType> = GraphQLListImpl<T>;
+
 class Type {
   inline public static function int(): GraphQLScalarType<Int>
     return TypeImpl.int();
@@ -141,4 +166,13 @@ class Type {
 
   inline public static function inputObject(config: GraphQLInputObjectTypeConfig)
     return new GraphQLInputObjectType(config);
+
+  inline public static function enumType(config: GraphQLEnumTypeConfig)
+    return new GraphQLEnumType(config);
+
+  inline public static function nonNull<T: GraphQLType>(type: T)
+    return new GraphQLNonNull(type);
+
+  inline public static function list<T: GraphQLType>(type: T)
+    return new GraphQLList(type);
 }
