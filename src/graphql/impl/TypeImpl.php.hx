@@ -49,7 +49,7 @@ abstract GraphQLUnionTypeImpl(UnionType) {
 }
 
 abstract GraphQLInputObjectTypeImpl(ObjectType) {
-  inline public function new(config: GraphQLObjectTypeConfig)
+  inline public function new(config: GraphQLInputObjectTypeConfig)
     this = new ObjectType(config);
 }
 

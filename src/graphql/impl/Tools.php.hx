@@ -2,6 +2,25 @@ package graphql.impl;
 
 import php.*;
 
+typedef Struct<T:{}> = NativeStructArray<T>;
+
+@:forward
+abstract Record<T>(Dynamic<T>) {
+  @:from public static function fromDynamic<T>(obj: Dynamic<T>): Record<T> {
+    return cast php.Syntax.array(obj);
+  }
+}
+
+abstract Args(Dynamic) {
+  @:op(a.b) inline static function get(args: Args, field: String) {
+    return untyped args[field];
+  }
+
+  @:op(a.b) inline static function set<V>(args: Args, field: String, v: V) {
+    return untyped args[field] = v;
+  }
+}
+
 @:keep
 private class ArrayOrObject {
   var arr = new NativeArray();

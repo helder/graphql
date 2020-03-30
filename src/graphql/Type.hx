@@ -5,29 +5,8 @@ import haxe.DynamicAccess;
 import haxe.ds.ReadOnlyArray;
 import graphql.impl.TypeImpl;
 import graphql.language.AST;
+import graphql.impl.Tools;
 
-typedef Struct<T:{}> = #if php php.NativeStructArray<T> #else T #end;
-
-@:forward
-abstract Record<T>(Dynamic<T>) {
-  @:from public static function fromDynamic<T>(obj: Dynamic<T>): Record<T> {
-    return #if php cast php.Syntax.array(obj) #else cast obj #end;
-  }
-}
-
-#if php
-abstract Args(Dynamic) {
-  @:op(a.b) inline static function get(args: Args, field: String) {
-    return untyped args[field];
-  }
-
-  @:op(a.b) inline static function set<V>(args: Args, field: String, v: V) {
-    return untyped args[field] = v;
-  }
-}
-#else
-typedef Args = Dynamic;
-#end
 typedef GraphQLOutputType = Dynamic;
 typedef Thunk<T> = EitherType<(() -> T), T>;
 typedef GraphQLFieldConfigArgumentMap = Record<GraphQLArgumentConfig>;
@@ -147,4 +126,19 @@ class Type {
 
   inline public static function id(): GraphQLScalarType<Dynamic>
     return TypeImpl.id();
+
+  inline public static function schema(config: GraphQLSchemaConfig)
+    return new GraphQLSchema(config);
+
+  inline public static function object(config: GraphQLObjectTypeConfig)
+    return new GraphQLObjectType(config);
+
+  inline public static function interfaceType(config: GraphQLInterfaceTypeConfig)
+    return new GraphQLInterfaceType(config);
+
+  inline public static function union(config: GraphQLUnionTypeConfig)
+    return new GraphQLUnionType(config);
+
+  inline public static function inputObject(config: GraphQLInputObjectTypeConfig)
+    return new GraphQLInputObjectType(config);
 }
