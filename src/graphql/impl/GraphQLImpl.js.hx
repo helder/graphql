@@ -8,7 +8,7 @@ class GraphQLImpl {
   inline public static function execute<T>(schema, documentAST, ?rootValue,
       ?contextValue, ?variableValues, ?operationName) {
     final res = ExecuteTopLevel.execute(schema, documentAST, rootValue, contextValue, variableValues, operationName);
-    if (Std.isOfType(res, js.lib.Promise))
+    if (Std.is(res, js.lib.Promise))
       return Promise.ofJsPromise(res);
     return Promise.resolve(cast res);
   }
