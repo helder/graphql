@@ -94,7 +94,8 @@ typedef GraphQLSchema = GraphQLSchemaImpl;
 
 typedef GraphQLSchemaConfig = Struct<{
   query: GraphQLObjectType,
-  ?mutation: GraphQLObjectType
+  ?mutation: GraphQLObjectType,
+  ?types: Array<GraphQLType>
 }>;
 
 // https://graphql.org/graphql-js/type/#graphqlobjecttype
