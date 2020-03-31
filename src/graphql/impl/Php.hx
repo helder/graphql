@@ -3,7 +3,7 @@ package graphql.impl;
 import php.*;
 
 @:native('GraphQL\\Deferred')
-extern class Deferred {
+@:noCompletion extern class Deferred {
   public var promise: Dynamic;
   public function new(callback: Dynamic): Void;
   // public static function getQueue(): SplQueue;
@@ -13,7 +13,7 @@ extern class Deferred {
 }
 
 @:native('GraphQL\\GraphQL')
-extern class GraphQL {
+@:noCompletion extern class GraphQL {
   public static function executeQuery(schema: Schema, source: Dynamic,
     ?rootValue: Dynamic, ?context: Dynamic, ?variableValues: Dynamic,
     ?operationName: String, ?fieldResolver: Dynamic,
@@ -40,13 +40,13 @@ extern class GraphQL {
 }
 
 @:native('GraphQL\\Error\\ClientAware')
-extern interface ClientAware {
+@:noCompletion extern interface ClientAware {
   public function isClientSafe(): Bool;
   public function getCategory(): String;
 }
 
 @:native('GraphQL\\Error\\Debug')
-extern class Debug {
+@:noCompletion extern class Debug {
   @:phpClassConst static public final INCLUDE_DEBUG_MESSAGE: Dynamic;
   @:phpClassConst static public final INCLUDE_TRACE: Dynamic;
   @:phpClassConst static public final RETHROW_INTERNAL_EXCEPTIONS: Dynamic;
@@ -54,7 +54,7 @@ extern class Debug {
 }
 
 @:native('GraphQL\\Error\\Error')
-extern class Error extends Exception implements JsonSerializable<Dynamic> implements ClientAware {
+@:noCompletion extern class Error extends Exception implements JsonSerializable<Dynamic> implements ClientAware {
   @:phpClassConst static public final CATEGORY_GRAPHQL: Dynamic;
   @:phpClassConst static public final CATEGORY_INTERNAL: Dynamic;
   public var path: Dynamic;
@@ -81,7 +81,7 @@ extern class Error extends Exception implements JsonSerializable<Dynamic> implem
 }
 
 @:native('GraphQL\\Error\\FormattedError')
-extern class FormattedError {
+@:noCompletion extern class FormattedError {
   public static function setInternalErrorMessage(msg: String): Dynamic;
   public static function printError(error: php.Error): String;
   public static function createFromException(e: php.Throwable,
@@ -98,22 +98,22 @@ extern class FormattedError {
 }
 
 @:native('GraphQL\\Error\\InvariantViolation')
-extern class InvariantViolation extends Exception {}
+@:noCompletion extern class InvariantViolation extends Exception {}
 
 @:native('GraphQL\\Error\\SyntaxError')
-extern class SyntaxError extends Exception {
+@:noCompletion extern class SyntaxError extends Exception {
   public function new(source: Source, position: Int,
     description: String): Void;
 }
 
 @:native('GraphQL\\Error\\UserError')
-extern class UserError extends Exception implements ClientAware {
+@:noCompletion extern class UserError extends Exception implements ClientAware {
   public function isClientSafe(): Bool;
   public function getCategory(): String;
 }
 
 @:native('GraphQL\\Error\\Warning')
-extern class Warning {
+@:noCompletion extern class Warning {
   @:phpClassConst static public final WARNING_ASSIGN: Dynamic;
   @:phpClassConst static public final WARNING_CONFIG: Dynamic;
   @:phpClassConst static public final WARNING_FULL_SCHEMA_SCAN: Dynamic;
@@ -130,7 +130,7 @@ extern class Warning {
 }
 
 @:native('GraphQL\\Executor\\ExecutionContext')
-extern class ExecutionContext {
+@:noCompletion extern class ExecutionContext {
   public var schema: Dynamic;
   public var fragments: Dynamic;
   public var rootValue: Dynamic;
@@ -147,7 +147,7 @@ extern class ExecutionContext {
 }
 
 @:native('GraphQL\\Executor\\ExecutionResult')
-extern class ExecutionResult implements JsonSerializable<Dynamic> {
+@:noCompletion extern class ExecutionResult implements JsonSerializable<Dynamic> {
   public var data: Dynamic;
   public var errors: Dynamic;
   public var extensions: Dynamic;
@@ -160,7 +160,7 @@ extern class ExecutionResult implements JsonSerializable<Dynamic> {
 }
 
 @:native('GraphQL\\Executor\\Executor')
-extern class Executor {
+@:noCompletion extern class Executor {
   public static function getDefaultFieldResolver(): Dynamic;
   public static function setDefaultFieldResolver(fieldResolver: Dynamic): Dynamic;
   public static function getPromiseAdapter(): PromiseAdapter;
@@ -179,12 +179,12 @@ extern class Executor {
 }
 
 @:native('GraphQL\\Executor\\ExecutorImplementation')
-extern interface ExecutorImplementation {
+@:noCompletion extern interface ExecutorImplementation {
   public function doExecute(): Promise;
 }
 
 @:native('GraphQL\\Executor\\ReferenceExecutor')
-extern class ReferenceExecutor implements ExecutorImplementation {
+@:noCompletion extern class ReferenceExecutor implements ExecutorImplementation {
   public static function create(promiseAdapter: PromiseAdapter,
     schema: Schema, documentNode: DocumentNode, rootValue: Dynamic,
     contextValue: Dynamic, variableValues: Dynamic, operationName: String,
@@ -196,7 +196,7 @@ extern class ReferenceExecutor implements ExecutorImplementation {
 }
 
 @:native('GraphQL\\Executor\\Values')
-extern class Values {
+@:noCompletion extern class Values {
   public static function getVariableValues(schema: Schema,
     varDefNodes: Array<VariableDefinitionNode>,
     inputs: Array<Dynamic>): Array<Dynamic>;
@@ -215,7 +215,7 @@ extern class Values {
 
 /*
   @:native('GraphQL\\Executor\\Promise\\Adapter\\ReactPromiseAdapter')
-  extern class ReactPromiseAdapter implements PromiseAdapter {
+  @:noCompletion extern class ReactPromiseAdapter implements PromiseAdapter {
   public function isThenable(value: Dynamic): Dynamic;
   public function convertThenable(thenable: Dynamic): Dynamic;
   public function then(promise: Promise,
@@ -226,7 +226,7 @@ extern class Values {
   public function all(promisesOrValues: Array<Dynamic>): Dynamic;
 }*/
 @:native('GraphQL\\Executor\\Promise\\Adapter\\SyncPromise')
-extern class SyncPromise {
+@:noCompletion extern class SyncPromise {
   @:phpClassConst static public final PENDING: Dynamic;
   @:phpClassConst static public final FULFILLED: Dynamic;
   @:phpClassConst static public final REJECTED: Dynamic;
@@ -241,7 +241,7 @@ extern class SyncPromise {
 }
 
 @:native('GraphQL\\Executor\\Promise\\Adapter\\SyncPromiseAdapter')
-extern class SyncPromiseAdapter implements PromiseAdapter {
+@:noCompletion extern class SyncPromiseAdapter implements PromiseAdapter {
   public function isThenable(value: Dynamic): Bool;
   public function convertThenable(thenable: Map<String, Dynamic>): Promise;
   public function then(promise: Promise, ?onFulfilled: Dynamic,
@@ -256,14 +256,14 @@ extern class SyncPromiseAdapter implements PromiseAdapter {
 }
 
 @:native('GraphQL\\Executor\\Promise\\Promise')
-extern class Promise {
+@:noCompletion extern class Promise {
   public var adoptedPromise: Dynamic;
   public function new(adoptedPromise: Dynamic, adapter: PromiseAdapter): Void;
   public function then(?onFulfilled: Dynamic, ?onRejected: Dynamic): Promise;
 }
 
 @:native('GraphQL\\Executor\\Promise\\PromiseAdapter')
-extern interface PromiseAdapter {
+@:noCompletion extern interface PromiseAdapter {
   public function isThenable(value: Dynamic): Bool;
   public function convertThenable(thenable: Map<String, Dynamic>): Promise;
   public function then(promise: Promise, ?onFulfilled: Dynamic,
@@ -275,7 +275,7 @@ extern interface PromiseAdapter {
 }
 
 @:native('GraphQL\\Experimental\\Executor\\Collector')
-extern class Collector {
+@:noCompletion extern class Collector {
   public var operation: Dynamic;
   public var fragments: Array<FragmentDefinitionNode>;
   public var rootType: Dynamic;
@@ -287,7 +287,7 @@ extern class Collector {
 }
 
 @:native('GraphQL\\Experimental\\Executor\\CoroutineContext')
-extern class CoroutineContext {
+@:noCompletion extern class CoroutineContext {
   public var shared: Dynamic;
   public var type: Dynamic;
   public var value: Dynamic;
@@ -301,7 +301,7 @@ extern class CoroutineContext {
 }
 
 @:native('GraphQL\\Experimental\\Executor\\CoroutineContextShared')
-extern class CoroutineContextShared {
+@:noCompletion extern class CoroutineContextShared {
   public var fieldNodes: Dynamic;
   public var fieldName: Dynamic;
   public var resultName: Dynamic;
@@ -318,7 +318,7 @@ extern class CoroutineContextShared {
 }
 
 @:native('GraphQL\\Experimental\\Executor\\CoroutineExecutor')
-extern class CoroutineExecutor implements Runtime implements ExecutorImplementation {
+@:noCompletion extern class CoroutineExecutor implements Runtime implements ExecutorImplementation {
   public function new(promiseAdapter: PromiseAdapter, schema: Schema,
     documentNode: DocumentNode, rootValue: Dynamic, contextValue: Dynamic,
     rawVariableValues: Dynamic, operationName: String,
@@ -333,13 +333,13 @@ extern class CoroutineExecutor implements Runtime implements ExecutorImplementat
 }
 
 @:native('GraphQL\\Experimental\\Executor\\Runtime')
-extern interface Runtime {
+@:noCompletion extern interface Runtime {
   public function evaluate(valueNode: ValueNode, type: InputType): Dynamic;
   public function addError(error: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Experimental\\Executor\\Strand')
-extern class Strand {
+@:noCompletion extern class Strand {
   public var current: Dynamic;
   public var stack: Dynamic;
   public var depth: Dynamic;
@@ -349,23 +349,23 @@ extern class Strand {
 }
 
 @:native('GraphQL\\Language\\AST\\ArgumentNode')
-extern class ArgumentNode {
+@:noCompletion extern class ArgumentNode {
   public var kind: String;
   public var value: Dynamic;
   public var name: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\BooleanValueNode')
-extern class BooleanValueNode implements ValueNode {
+@:noCompletion extern class BooleanValueNode implements ValueNode {
   public var kind: String;
   public var value: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\DefinitionNode')
-extern interface DefinitionNode {}
+@:noCompletion extern interface DefinitionNode {}
 
 @:native('GraphQL\\Language\\AST\\DirectiveDefinitionNode')
-extern class DirectiveDefinitionNode implements TypeSystemDefinitionNode {
+@:noCompletion extern class DirectiveDefinitionNode implements TypeSystemDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var arguments: Dynamic;
@@ -374,20 +374,20 @@ extern class DirectiveDefinitionNode implements TypeSystemDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\DirectiveNode')
-extern class DirectiveNode {
+@:noCompletion extern class DirectiveNode {
   public var kind: String;
   public var name: Dynamic;
   public var arguments: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\DocumentNode')
-extern class DocumentNode {
+@:noCompletion extern class DocumentNode {
   public var kind: String;
   public var definitions: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\EnumTypeDefinitionNode')
-extern class EnumTypeDefinitionNode implements TypeDefinitionNode {
+@:noCompletion extern class EnumTypeDefinitionNode implements TypeDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -396,7 +396,7 @@ extern class EnumTypeDefinitionNode implements TypeDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\EnumTypeExtensionNode')
-extern class EnumTypeExtensionNode implements TypeExtensionNode {
+@:noCompletion extern class EnumTypeExtensionNode implements TypeExtensionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -404,7 +404,7 @@ extern class EnumTypeExtensionNode implements TypeExtensionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\EnumValueDefinitionNode')
-extern class EnumValueDefinitionNode {
+@:noCompletion extern class EnumValueDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -412,16 +412,16 @@ extern class EnumValueDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\EnumValueNode')
-extern class EnumValueNode implements ValueNode {
+@:noCompletion extern class EnumValueNode implements ValueNode {
   public var kind: String;
   public var value: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\ExecutableDefinitionNode')
-extern interface ExecutableDefinitionNode extends DefinitionNode {}
+@:noCompletion extern interface ExecutableDefinitionNode extends DefinitionNode {}
 
 @:native('GraphQL\\Language\\AST\\FieldDefinitionNode')
-extern class FieldDefinitionNode {
+@:noCompletion extern class FieldDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var arguments: Dynamic;
@@ -431,7 +431,7 @@ extern class FieldDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\FieldNode')
-extern class FieldNode implements SelectionNode {
+@:noCompletion extern class FieldNode implements SelectionNode {
   public var kind: String;
   public var name: Dynamic;
   public var alias: Dynamic;
@@ -441,13 +441,13 @@ extern class FieldNode implements SelectionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\FloatValueNode')
-extern class FloatValueNode implements ValueNode {
+@:noCompletion extern class FloatValueNode implements ValueNode {
   public var kind: String;
   public var value: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\FragmentDefinitionNode')
-extern class FragmentDefinitionNode implements ExecutableDefinitionNode implements HasSelectionSet {
+@:noCompletion extern class FragmentDefinitionNode implements ExecutableDefinitionNode implements HasSelectionSet {
   public var kind: String;
   public var name: Dynamic;
   public var variableDefinitions: Dynamic;
@@ -457,17 +457,17 @@ extern class FragmentDefinitionNode implements ExecutableDefinitionNode implemen
 }
 
 @:native('GraphQL\\Language\\AST\\FragmentSpreadNode')
-extern class FragmentSpreadNode implements SelectionNode {
+@:noCompletion extern class FragmentSpreadNode implements SelectionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\HasSelectionSet')
-extern interface HasSelectionSet {}
+@:noCompletion extern interface HasSelectionSet {}
 
 @:native('GraphQL\\Language\\AST\\InlineFragmentNode')
-extern class InlineFragmentNode implements SelectionNode {
+@:noCompletion extern class InlineFragmentNode implements SelectionNode {
   public var kind: String;
   public var typeCondition: Dynamic;
   public var directives: Dynamic;
@@ -475,7 +475,7 @@ extern class InlineFragmentNode implements SelectionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\InputObjectTypeDefinitionNode')
-extern class InputObjectTypeDefinitionNode implements TypeDefinitionNode {
+@:noCompletion extern class InputObjectTypeDefinitionNode implements TypeDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -484,7 +484,7 @@ extern class InputObjectTypeDefinitionNode implements TypeDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\InputObjectTypeExtensionNode')
-extern class InputObjectTypeExtensionNode implements TypeExtensionNode {
+@:noCompletion extern class InputObjectTypeExtensionNode implements TypeExtensionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -492,7 +492,7 @@ extern class InputObjectTypeExtensionNode implements TypeExtensionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\InputValueDefinitionNode')
-extern class InputValueDefinitionNode {
+@:noCompletion extern class InputValueDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var type: Dynamic;
@@ -502,7 +502,7 @@ extern class InputValueDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\InterfaceTypeDefinitionNode')
-extern class InterfaceTypeDefinitionNode implements TypeDefinitionNode {
+@:noCompletion extern class InterfaceTypeDefinitionNode implements TypeDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -511,7 +511,7 @@ extern class InterfaceTypeDefinitionNode implements TypeDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\InterfaceTypeExtensionNode')
-extern class InterfaceTypeExtensionNode implements TypeExtensionNode {
+@:noCompletion extern class InterfaceTypeExtensionNode implements TypeExtensionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -519,25 +519,25 @@ extern class InterfaceTypeExtensionNode implements TypeExtensionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\IntValueNode')
-extern class IntValueNode implements ValueNode {
+@:noCompletion extern class IntValueNode implements ValueNode {
   public var kind: String;
   public var value: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\ListTypeNode')
-extern class ListTypeNode implements TypeNode {
+@:noCompletion extern class ListTypeNode implements TypeNode {
   public var kind: String;
   public var type: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\ListValueNode')
-extern class ListValueNode implements ValueNode {
+@:noCompletion extern class ListValueNode implements ValueNode {
   public var kind: String;
   public var values: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\Location')
-extern class Location {
+@:noCompletion extern class Location {
   public var start: Dynamic;
   public var end: Dynamic;
   public var startToken: Dynamic;
@@ -549,19 +549,19 @@ extern class Location {
 }
 
 @:native('GraphQL\\Language\\AST\\NamedTypeNode')
-extern class NamedTypeNode implements TypeNode {
+@:noCompletion extern class NamedTypeNode implements TypeNode {
   public var kind: String;
   public var name: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\NameNode')
-extern class NameNode implements TypeNode {
+@:noCompletion extern class NameNode implements TypeNode {
   public var kind: String;
   public var value: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\Node')
-extern class Node {
+@:noCompletion extern class Node {
   public var loc: Dynamic;
   public function new(vars: Array<Dynamic>): Void;
   public function cloneDeep(): Node;
@@ -570,7 +570,7 @@ extern class Node {
 }
 
 @:native('GraphQL\\Language\\AST\\NodeKind')
-extern class NodeKind {
+@:noCompletion extern class NodeKind {
   @:phpClassConst static public final NAME: Dynamic;
   @:phpClassConst static public final DOCUMENT: Dynamic;
   @:phpClassConst static public final OPERATION_DEFINITION: Dynamic;
@@ -618,7 +618,8 @@ extern class NodeKind {
 }
 
 @:native('GraphQL\\Language\\AST\\NodeList')
-extern class NodeList implements php.ArrayAccess<String, Dynamic> implements IteratorAggregate<Dynamic> implements Countable {
+@:noCompletion extern class NodeList implements php.ArrayAccess<String, Dynamic>
+    implements IteratorAggregate<Dynamic> implements Countable {
   public static function create(nodes: Array<Dynamic>): NodeList;
   public function new(nodes: Array<Dynamic>): Void;
   public function offsetExists(offset: Dynamic): Bool;
@@ -633,25 +634,25 @@ extern class NodeList implements php.ArrayAccess<String, Dynamic> implements Ite
 }
 
 @:native('GraphQL\\Language\\AST\\NonNullTypeNode')
-extern class NonNullTypeNode implements TypeNode {
+@:noCompletion extern class NonNullTypeNode implements TypeNode {
   public var kind: String;
   public var type: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\NullValueNode')
-extern class NullValueNode implements ValueNode {
+@:noCompletion extern class NullValueNode implements ValueNode {
   public var kind: String;
 }
 
 @:native('GraphQL\\Language\\AST\\ObjectFieldNode')
-extern class ObjectFieldNode {
+@:noCompletion extern class ObjectFieldNode {
   public var kind: String;
   public var name: Dynamic;
   public var value: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\ObjectTypeDefinitionNode')
-extern class ObjectTypeDefinitionNode implements TypeDefinitionNode {
+@:noCompletion extern class ObjectTypeDefinitionNode implements TypeDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var interfaces: Array<NamedTypeNode>;
@@ -661,7 +662,7 @@ extern class ObjectTypeDefinitionNode implements TypeDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\ObjectTypeExtensionNode')
-extern class ObjectTypeExtensionNode implements TypeExtensionNode {
+@:noCompletion extern class ObjectTypeExtensionNode implements TypeExtensionNode {
   public var kind: String;
   public var name: Dynamic;
   public var interfaces: Array<NamedTypeNode>;
@@ -670,13 +671,13 @@ extern class ObjectTypeExtensionNode implements TypeExtensionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\ObjectValueNode')
-extern class ObjectValueNode implements ValueNode {
+@:noCompletion extern class ObjectValueNode implements ValueNode {
   public var kind: String;
   public var fields: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\OperationDefinitionNode')
-extern class OperationDefinitionNode implements ExecutableDefinitionNode implements HasSelectionSet {
+@:noCompletion extern class OperationDefinitionNode implements ExecutableDefinitionNode implements HasSelectionSet {
   public var kind: String;
   public var name: Dynamic;
   public var operation: Dynamic;
@@ -686,14 +687,14 @@ extern class OperationDefinitionNode implements ExecutableDefinitionNode impleme
 }
 
 @:native('GraphQL\\Language\\AST\\OperationTypeDefinitionNode')
-extern class OperationTypeDefinitionNode {
+@:noCompletion extern class OperationTypeDefinitionNode {
   public var kind: String;
   public var operation: Dynamic;
   public var type: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\ScalarTypeDefinitionNode')
-extern class ScalarTypeDefinitionNode implements TypeDefinitionNode {
+@:noCompletion extern class ScalarTypeDefinitionNode implements TypeDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -701,56 +702,56 @@ extern class ScalarTypeDefinitionNode implements TypeDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\ScalarTypeExtensionNode')
-extern class ScalarTypeExtensionNode implements TypeExtensionNode {
+@:noCompletion extern class ScalarTypeExtensionNode implements TypeExtensionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\SchemaDefinitionNode')
-extern class SchemaDefinitionNode implements TypeSystemDefinitionNode {
+@:noCompletion extern class SchemaDefinitionNode implements TypeSystemDefinitionNode {
   public var kind: String;
   public var directives: Dynamic;
   public var operationTypes: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\SchemaTypeExtensionNode')
-extern class SchemaTypeExtensionNode implements TypeExtensionNode {
+@:noCompletion extern class SchemaTypeExtensionNode implements TypeExtensionNode {
   public var kind: String;
   public var directives: Dynamic;
   public var operationTypes: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\SelectionNode')
-extern interface SelectionNode {}
+@:noCompletion extern interface SelectionNode {}
 
 @:native('GraphQL\\Language\\AST\\SelectionSetNode')
-extern class SelectionSetNode {
+@:noCompletion extern class SelectionSetNode {
   public var kind: String;
   public var selections: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\StringValueNode')
-extern class StringValueNode implements ValueNode {
+@:noCompletion extern class StringValueNode implements ValueNode {
   public var kind: String;
   public var value: Dynamic;
   public var block: Dynamic;
 }
 
 @:native('GraphQL\\Language\\AST\\TypeDefinitionNode')
-extern interface TypeDefinitionNode extends TypeSystemDefinitionNode {}
+@:noCompletion extern interface TypeDefinitionNode extends TypeSystemDefinitionNode {}
 
 @:native('GraphQL\\Language\\AST\\TypeExtensionNode')
-extern interface TypeExtensionNode extends TypeSystemDefinitionNode {}
+@:noCompletion extern interface TypeExtensionNode extends TypeSystemDefinitionNode {}
 
 @:native('GraphQL\\Language\\AST\\TypeNode')
-extern interface TypeNode {}
+@:noCompletion extern interface TypeNode {}
 
 @:native('GraphQL\\Language\\AST\\TypeSystemDefinitionNode')
-extern interface TypeSystemDefinitionNode extends DefinitionNode {}
+@:noCompletion extern interface TypeSystemDefinitionNode extends DefinitionNode {}
 
 @:native('GraphQL\\Language\\AST\\UnionTypeDefinitionNode')
-extern class UnionTypeDefinitionNode implements TypeDefinitionNode {
+@:noCompletion extern class UnionTypeDefinitionNode implements TypeDefinitionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -759,7 +760,7 @@ extern class UnionTypeDefinitionNode implements TypeDefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\UnionTypeExtensionNode')
-extern class UnionTypeExtensionNode implements TypeExtensionNode {
+@:noCompletion extern class UnionTypeExtensionNode implements TypeExtensionNode {
   public var kind: String;
   public var name: Dynamic;
   public var directives: Dynamic;
@@ -767,10 +768,10 @@ extern class UnionTypeExtensionNode implements TypeExtensionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\ValueNode')
-extern interface ValueNode {}
+@:noCompletion extern interface ValueNode {}
 
 @:native('GraphQL\\Language\\AST\\VariableDefinitionNode')
-extern class VariableDefinitionNode implements DefinitionNode {
+@:noCompletion extern class VariableDefinitionNode implements DefinitionNode {
   public var kind: String;
   public var variable: Dynamic;
   public var type: Dynamic;
@@ -778,13 +779,13 @@ extern class VariableDefinitionNode implements DefinitionNode {
 }
 
 @:native('GraphQL\\Language\\AST\\VariableNode')
-extern class VariableNode implements ValueNode {
+@:noCompletion extern class VariableNode implements ValueNode {
   public var kind: String;
   public var name: Dynamic;
 }
 
 @:native('GraphQL\\Language\\DirectiveLocation')
-extern class DirectiveLocation {
+@:noCompletion extern class DirectiveLocation {
   @:phpClassConst static public final QUERY: Dynamic;
   @:phpClassConst static public final MUTATION: Dynamic;
   @:phpClassConst static public final SUBSCRIPTION: Dynamic;
@@ -807,7 +808,7 @@ extern class DirectiveLocation {
 }
 
 @:native('GraphQL\\Language\\Lexer')
-extern class Lexer {
+@:noCompletion extern class Lexer {
   public var source: Dynamic;
   public var options: Dynamic;
   public var lastToken: Dynamic;
@@ -820,7 +821,7 @@ extern class Lexer {
 }
 
 @:native('GraphQL\\Language\\Parser')
-extern class Parser {
+@:noCompletion extern class Parser {
   public static function parse(source: Dynamic,
     ?options: Array<Dynamic>): DocumentNode;
   public static function parseValue(source: Dynamic,
@@ -831,7 +832,7 @@ extern class Parser {
 }
 
 @:native('GraphQL\\Language\\Printer')
-extern class Printer {
+@:noCompletion extern class Printer {
   public static function doPrint(ast: Node): String;
   private function new(): Void;
   public function printAST(ast: Dynamic): Dynamic;
@@ -847,7 +848,7 @@ extern class Printer {
 }
 
 @:native('GraphQL\\Language\\Source')
-extern class Source {
+@:noCompletion extern class Source {
   public var body: Dynamic;
   public var length: Dynamic;
   public var name: Dynamic;
@@ -858,7 +859,7 @@ extern class Source {
 }
 
 @:native('GraphQL\\Language\\SourceLocation')
-extern class SourceLocation implements JsonSerializable<Dynamic> {
+@:noCompletion extern class SourceLocation implements JsonSerializable<Dynamic> {
   public var line: Dynamic;
   public var column: Dynamic;
   public function new(line: Int, col: Int): Void;
@@ -868,7 +869,7 @@ extern class SourceLocation implements JsonSerializable<Dynamic> {
 }
 
 @:native('GraphQL\\Language\\Token')
-extern class Token {
+@:noCompletion extern class Token {
   @:phpClassConst static public final SOF: Dynamic;
   @:phpClassConst static public final EOF: Dynamic;
   @:phpClassConst static public final BANG: Dynamic;
@@ -906,7 +907,7 @@ extern class Token {
 }
 
 @:native('GraphQL\\Language\\Visitor')
-extern class Visitor {
+@:noCompletion extern class Visitor {
   public var visitorKeys: Array<Array<String>>;
   public static function visit(root: Dynamic, visitor: Array<Dynamic>,
     ?keyMap: Dynamic): Dynamic;
@@ -921,14 +922,14 @@ extern class Visitor {
 }
 
 @:native('GraphQL\\Language\\VisitorOperation')
-extern class VisitorOperation {
+@:noCompletion extern class VisitorOperation {
   public var doBreak: Dynamic;
   public var doContinue: Dynamic;
   public var removeNode: Dynamic;
 }
 
 @:native('GraphQL\\Server\\Helper')
-extern class Helper {
+@:noCompletion extern class Helper {
   public function parseHttpRequest(?readRawBodyFn: Dynamic): Dynamic;
   public function parseRequestParams(method: String,
     bodyParams: Array<Dynamic>, queryParams: Array<Dynamic>): Dynamic;
@@ -946,7 +947,7 @@ extern class Helper {
 }
 
 @:native('GraphQL\\Server\\OperationParams')
-extern class OperationParams {
+@:noCompletion extern class OperationParams {
   public var queryId: Dynamic;
   public var query: Dynamic;
   public var operation: Dynamic;
@@ -959,13 +960,13 @@ extern class OperationParams {
 }
 
 @:native('GraphQL\\Server\\RequestError')
-extern class RequestError extends Exception implements ClientAware {
+@:noCompletion extern class RequestError extends Exception implements ClientAware {
   public function isClientSafe(): Bool;
   public function getCategory(): String;
 }
 
 @:native('GraphQL\\Server\\ServerConfig')
-extern class ServerConfig {
+@:noCompletion extern class ServerConfig {
   public static function create(?config: Dynamic): ServerConfig;
   public function setSchema(schema: Schema): ServerConfig;
   public function setContext(context: Dynamic): ServerConfig;
@@ -992,7 +993,7 @@ extern class ServerConfig {
 }
 
 @:native('GraphQL\\Server\\StandardServer')
-extern class StandardServer {
+@:noCompletion extern class StandardServer {
   public static function send500Error(error: php.Throwable, ?debug: Bool,
     ?exitWhenDone: Bool): Dynamic;
   public function new(config: Dynamic): Void;
@@ -1006,13 +1007,13 @@ extern class StandardServer {
 }
 
 @:native('GraphQL\\Type\\Definition\\AbstractType')
-extern interface AbstractType {
+@:noCompletion extern interface AbstractType {
   public function resolveType(objectValue: Map<String, Dynamic>,
     context: Array<Dynamic>, info: ResolveInfo): Dynamic;
 }
 
 @:native('GraphQL\\Type\\Definition\\BooleanType')
-extern class BooleanType extends ScalarType {
+@:noCompletion extern class BooleanType extends ScalarType {
   public var name: String;
   public var description: String;
   public function serialize(value: Dynamic): Bool;
@@ -1022,10 +1023,10 @@ extern class BooleanType extends ScalarType {
 }
 
 @:native('GraphQL\\Type\\Definition\\CompositeType')
-extern interface CompositeType {}
+@:noCompletion extern interface CompositeType {}
 
 @:native('GraphQL\\Type\\Definition\\CustomScalarType')
-extern class CustomScalarType extends ScalarType {
+@:noCompletion extern class CustomScalarType extends ScalarType {
   public function serialize(value: Dynamic): Dynamic;
   public function parseValue(value: Dynamic): Dynamic;
   public function parseLiteral(valueNode: Node,
@@ -1034,7 +1035,7 @@ extern class CustomScalarType extends ScalarType {
 }
 
 @:native('GraphQL\\Type\\Definition\\Directive')
-extern class Directive {
+@:noCompletion extern class Directive {
   @:phpClassConst static public final DEFAULT_DEPRECATION_REASON: Dynamic;
   @:phpClassConst static public final INCLUDE_NAME: Dynamic;
   @:phpClassConst static public final IF_ARGUMENT_NAME: Dynamic;
@@ -1057,8 +1058,9 @@ extern class Directive {
 }
 
 @:native('GraphQL\\Type\\Definition\\EnumType')
-extern class EnumType implements InputType implements OutputType
-    implements LeafType implements NullableType implements NamedType {
+@:noCompletion extern class EnumType implements InputType
+    implements OutputType implements LeafType implements NullableType
+    implements NamedType {
   public var astNode: Dynamic;
   public var extensionASTNodes: Dynamic;
   public function new(config: Dynamic): Void;
@@ -1072,7 +1074,7 @@ extern class EnumType implements InputType implements OutputType
 }
 
 @:native('GraphQL\\Type\\Definition\\EnumValueDefinition')
-extern class EnumValueDefinition {
+@:noCompletion extern class EnumValueDefinition {
   public var name: Dynamic;
   public var value: Dynamic;
   public var deprecationReason: Dynamic;
@@ -1084,7 +1086,7 @@ extern class EnumValueDefinition {
 }
 
 @:native('GraphQL\\Type\\Definition\\FieldArgument')
-extern class FieldArgument {
+@:noCompletion extern class FieldArgument {
   public var name: Dynamic;
   public var defaultValue: Dynamic;
   public var description: Dynamic;
@@ -1099,7 +1101,7 @@ extern class FieldArgument {
 }
 
 @:native('GraphQL\\Type\\Definition\\FieldDefinition')
-extern class FieldDefinition {
+@:noCompletion extern class FieldDefinition {
   @:phpClassConst static public final DEFAULT_COMPLEXITY_FN: Dynamic;
   public var name: Dynamic;
   public var args: Dynamic;
@@ -1122,7 +1124,7 @@ extern class FieldDefinition {
 }
 
 @:native('GraphQL\\Type\\Definition\\FloatType')
-extern class FloatType extends ScalarType {
+@:noCompletion extern class FloatType extends ScalarType {
   public var name: String;
   public var description: String;
   public function serialize(value: Dynamic): Dynamic;
@@ -1132,7 +1134,7 @@ extern class FloatType extends ScalarType {
 }
 
 @:native('GraphQL\\Type\\Definition\\IDType')
-extern class IDType extends ScalarType {
+@:noCompletion extern class IDType extends ScalarType {
   public var name: String;
   public var description: String;
   public function serialize(value: Dynamic): String;
@@ -1142,7 +1144,7 @@ extern class IDType extends ScalarType {
 }
 
 @:native('GraphQL\\Type\\Definition\\InputObjectField')
-extern class InputObjectField {
+@:noCompletion extern class InputObjectField {
   public var name: Dynamic;
   public var defaultValue: Dynamic;
   public var description: Dynamic;
@@ -1156,7 +1158,7 @@ extern class InputObjectField {
 }
 
 @:native('GraphQL\\Type\\Definition\\InputObjectType')
-extern class InputObjectType implements InputType implements NullableType implements NamedType {
+@:noCompletion extern class InputObjectType implements InputType implements NullableType implements NamedType {
   public var astNode: Dynamic;
   public var extensionASTNodes: Dynamic;
   public function new(config: Dynamic): Void;
@@ -1166,11 +1168,12 @@ extern class InputObjectType implements InputType implements NullableType implem
 }
 
 @:native('GraphQL\\Type\\Definition\\InputType')
-extern interface InputType {}
+@:noCompletion extern interface InputType {}
 
 @:native('GraphQL\\Type\\Definition\\InterfaceType')
-extern class InterfaceType implements AbstractType implements OutputType
-    implements CompositeType implements NullableType implements NamedType {
+@:noCompletion extern class InterfaceType implements AbstractType
+    implements OutputType implements CompositeType implements NullableType
+    implements NamedType {
   public var astNode: Dynamic;
   public var extensionASTNodes: Dynamic;
   public function new(config: Dynamic): Void;
@@ -1184,7 +1187,7 @@ extern class InterfaceType implements AbstractType implements OutputType
 }
 
 @:native('GraphQL\\Type\\Definition\\IntType')
-extern class IntType extends ScalarType {
+@:noCompletion extern class IntType extends ScalarType {
   public var name: String;
   public var description: String;
   public function serialize(value: Dynamic): Dynamic;
@@ -1194,7 +1197,7 @@ extern class IntType extends ScalarType {
 }
 
 @:native('GraphQL\\Type\\Definition\\LeafType')
-extern interface LeafType {
+@:noCompletion extern interface LeafType {
   public function serialize(value: Dynamic): Dynamic;
   public function parseValue(value: Dynamic): Dynamic;
   public function parseLiteral(valueNode: Node,
@@ -1202,8 +1205,8 @@ extern interface LeafType {
 }
 
 @:native('GraphQL\\Type\\Definition\\ListOfType')
-extern class ListOfType implements WrappingType implements OutputType
-    implements NullableType implements InputType {
+@:noCompletion extern class ListOfType implements WrappingType
+    implements OutputType implements NullableType implements InputType {
   public var ofType: Dynamic;
   public function new(type: Dynamic): Void;
   public function toString(): String;
@@ -1211,10 +1214,10 @@ extern class ListOfType implements WrappingType implements OutputType
 }
 
 @:native('GraphQL\\Type\\Definition\\NamedType')
-extern interface NamedType {}
+@:noCompletion extern interface NamedType {}
 
 @:native('GraphQL\\Type\\Definition\\NonNull')
-extern class NonNull implements WrappingType implements OutputType implements InputType {
+@:noCompletion extern class NonNull implements WrappingType implements OutputType implements InputType {
   public function new(type: NullableType): Void;
   public static function assertNullableType(type: Dynamic): NullableType;
   public static function assertNullType(type: Dynamic): NonNull;
@@ -1223,11 +1226,11 @@ extern class NonNull implements WrappingType implements OutputType implements In
 }
 
 @:native('GraphQL\\Type\\Definition\\NullableType')
-extern interface NullableType {}
+@:noCompletion extern interface NullableType {}
 
 @:native('GraphQL\\Type\\Definition\\ObjectType')
-extern class ObjectType implements OutputType implements CompositeType
-    implements NullableType implements NamedType {
+@:noCompletion extern class ObjectType implements OutputType
+    implements CompositeType implements NullableType implements NamedType {
   public var astNode: Dynamic;
   public var extensionASTNodes: Dynamic;
   public var resolveFieldFn: Dynamic;
@@ -1244,10 +1247,10 @@ extern class ObjectType implements OutputType implements CompositeType
 }
 
 @:native('GraphQL\\Type\\Definition\\OutputType')
-extern interface OutputType {}
+@:noCompletion extern interface OutputType {}
 
 @:native('GraphQL\\Type\\Definition\\QueryPlan')
-extern class QueryPlan {
+@:noCompletion extern class QueryPlan {
   public function new(parentType: ObjectType, schema: Schema,
     fieldNodes: Iterable<Dynamic>, variableValues: Array<Dynamic>,
     fragments: Array<Dynamic>): Void;
@@ -1260,7 +1263,7 @@ extern class QueryPlan {
 }
 
 @:native('GraphQL\\Type\\Definition\\ResolveInfo')
-extern class ResolveInfo {
+@:noCompletion extern class ResolveInfo {
   public var fieldName: Dynamic;
   public var fieldNodes: Array<FieldNode>;
   public var returnType: Dynamic;
@@ -1280,8 +1283,9 @@ extern class ResolveInfo {
 }
 
 @:native('GraphQL\\Type\\Definition\\ScalarType')
-extern class ScalarType implements OutputType implements InputType
-    implements LeafType implements NullableType implements NamedType {
+@:noCompletion extern class ScalarType implements OutputType
+    implements InputType implements LeafType implements NullableType
+    implements NamedType {
   public var astNode: Dynamic;
   public var extensionASTNodes: Dynamic;
   public function new(?config: Dynamic): Void;
@@ -1293,7 +1297,7 @@ extern class ScalarType implements OutputType implements InputType
 }
 
 @:native('GraphQL\\Type\\Definition\\StringType')
-extern class StringType extends ScalarType {
+@:noCompletion extern class StringType extends ScalarType {
   public var name: String;
   public var description: String;
   public function serialize(value: Dynamic): Dynamic;
@@ -1303,7 +1307,7 @@ extern class StringType extends ScalarType {
 }
 
 @:native('GraphQL\\Type\\Definition\\Type')
-extern class Type implements JsonSerializable<Dynamic> {
+@:noCompletion extern class Type implements JsonSerializable<Dynamic> {
   @:phpClassConst static public final STRING: Dynamic;
   @:phpClassConst static public final INT: Dynamic;
   @:phpClassConst static public final BOOLEAN: Dynamic;
@@ -1343,8 +1347,9 @@ extern class Type implements JsonSerializable<Dynamic> {
 }
 
 @:native('GraphQL\\Type\\Definition\\UnionType')
-extern class UnionType implements AbstractType implements OutputType
-    implements CompositeType implements NullableType implements NamedType {
+@:noCompletion extern class UnionType implements AbstractType
+    implements OutputType implements CompositeType implements NullableType
+    implements NamedType {
   public var astNode: Dynamic;
   public var extensionASTNodes: Dynamic;
   public function new(config: Dynamic): Void;
@@ -1356,15 +1361,15 @@ extern class UnionType implements AbstractType implements OutputType
 }
 
 @:native('GraphQL\\Type\\Definition\\UnmodifiedType')
-extern interface UnmodifiedType {}
+@:noCompletion extern interface UnmodifiedType {}
 
 @:native('GraphQL\\Type\\Definition\\WrappingType')
-extern interface WrappingType {
+@:noCompletion extern interface WrappingType {
   public function getWrappedType(?recurse: Bool): Dynamic;
 }
 
 @:native('GraphQL\\Type\\Introspection')
-extern class Introspection {
+@:noCompletion extern class Introspection {
   @:phpClassConst static public final SCHEMA_FIELD_NAME: Dynamic;
   @:phpClassConst static public final TYPE_FIELD_NAME: Dynamic;
   @:phpClassConst static public final TYPE_NAME_FIELD_NAME: Dynamic;
@@ -1385,7 +1390,7 @@ extern class Introspection {
 }
 
 @:native('GraphQL\\Type\\Schema')
-extern class Schema {
+@:noCompletion extern class Schema {
   public var extensionASTNodes: Dynamic;
   public function new(config: Dynamic): Void;
   public function getTypeMap(): Array<Type>;
@@ -1406,7 +1411,7 @@ extern class Schema {
 }
 
 @:native('GraphQL\\Type\\SchemaConfig')
-extern class SchemaConfig {
+@:noCompletion extern class SchemaConfig {
   public var query: Dynamic;
   public var mutation: Dynamic;
   public var subscription: Dynamic;
@@ -1438,7 +1443,7 @@ extern class SchemaConfig {
 }
 
 @:native('GraphQL\\Type\\SchemaValidationContext')
-extern class SchemaValidationContext {
+@:noCompletion extern class SchemaValidationContext {
   public function new(schema: Schema): Void;
   public function getErrors(): Array<php.Error>;
   public function validateRootTypes(): Dynamic;
@@ -1447,7 +1452,7 @@ extern class SchemaValidationContext {
 }
 
 @:native('GraphQL\\Type\\TypeKind')
-extern class TypeKind {
+@:noCompletion extern class TypeKind {
   @:phpClassConst static public final SCALAR: Dynamic;
   @:phpClassConst static public final OBJECT: Dynamic;
   @:phpClassConst static public final INTERFACE_KIND: Dynamic;
@@ -1459,7 +1464,7 @@ extern class TypeKind {
 }
 
 @:native('GraphQL\\Utils\\AST')
-extern class AST {
+@:noCompletion extern class AST {
   public static function fromArray(node: Array<Dynamic>): Node;
   public static function toArray(node: Node): Array<Dynamic>;
   public static function astFromValue(value: Dynamic,
@@ -1475,7 +1480,7 @@ extern class AST {
 }
 
 @:native('GraphQL\\Utils\\ASTDefinitionBuilder')
-extern class ASTDefinitionBuilder {
+@:noCompletion extern class ASTDefinitionBuilder {
   public function new(typeDefinitionsMap: Array<Dynamic>,
     options: Array<Bool>, resolveType: Dynamic,
     ?typeConfigDecorator: Dynamic): Void;
@@ -1487,12 +1492,12 @@ extern class ASTDefinitionBuilder {
 }
 
 @:native('GraphQL\\Utils\\BlockString')
-extern class BlockString {
+@:noCompletion extern class BlockString {
   public static function value(rawString: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Utils\\BreakingChangesFinder')
-extern class BreakingChangesFinder {
+@:noCompletion extern class BreakingChangesFinder {
   @:phpClassConst static public final BREAKING_CHANGE_FIELD_CHANGED_KIND: Dynamic;
   @:phpClassConst static public final BREAKING_CHANGE_FIELD_REMOVED: Dynamic;
   @:phpClassConst static public final BREAKING_CHANGE_TYPE_CHANGED_KIND: Dynamic;
@@ -1557,7 +1562,7 @@ extern class BreakingChangesFinder {
 }
 
 @:native('GraphQL\\Utils\\BuildSchema')
-extern class BuildSchema {
+@:noCompletion extern class BuildSchema {
   public function new(ast: DocumentNode, ?typeConfigDecorator: Dynamic,
     ?options: Array<Dynamic>): Void;
   public static function build(source: Dynamic, ?typeConfigDecorator: Dynamic,
@@ -1568,7 +1573,7 @@ extern class BuildSchema {
 }
 
 @:native('GraphQL\\Utils\\MixedStore')
-extern class MixedStore implements php.ArrayAccess<String, Dynamic> {
+@:noCompletion extern class MixedStore implements php.ArrayAccess<String, Dynamic> {
   public function new(): Void;
   public function offsetExists(offset: Dynamic): Bool;
   public function offsetGet(offset: Dynamic): Dynamic;
@@ -1577,7 +1582,7 @@ extern class MixedStore implements php.ArrayAccess<String, Dynamic> {
 }
 
 @:native('GraphQL\\Utils\\PairSet')
-extern class PairSet {
+@:noCompletion extern class PairSet {
   public function new(): Void;
   public function has(a: String, b: String, areMutuallyExclusive: Bool): Bool;
   public function add(a: String, b: String,
@@ -1585,7 +1590,7 @@ extern class PairSet {
 }
 
 @:native('GraphQL\\Utils\\SchemaExtender')
-extern class SchemaExtender {
+@:noCompletion extern class SchemaExtender {
   @:phpClassConst static public final SCHEMA_EXTENSION: Dynamic;
   private var extendTypeCache: Dynamic;
   private var typeExtensionsMap: Dynamic;
@@ -1616,7 +1621,7 @@ extern class SchemaExtender {
 }
 
 @:native('GraphQL\\Utils\\SchemaPrinter')
-extern class SchemaPrinter {
+@:noCompletion extern class SchemaPrinter {
   public static function doPrint(schema: Schema,
     ?options: Array<Dynamic>): String;
   public static function printType(type: Type,
@@ -1626,7 +1631,7 @@ extern class SchemaPrinter {
 }
 
 @:native('GraphQL\\Utils\\TypeComparators')
-extern class TypeComparators {
+@:noCompletion extern class TypeComparators {
   public static function isEqualType(typeA: Type, typeB: Type): Bool;
   public static function isTypeSubTypeOf(schema: Schema,
     maybeSubType: AbstractType, superType: AbstractType): Bool;
@@ -1635,7 +1640,7 @@ extern class TypeComparators {
 }
 
 @:native('GraphQL\\Utils\\TypeInfo')
-extern class TypeInfo {
+@:noCompletion extern class TypeInfo {
   public function new(schema: Schema, ?initialType: Dynamic): Void;
   public static function isEqualType(typeA: Type, typeB: Type): Dynamic;
   public static function isTypeSubTypeOf(schema: Schema, maybeSubType: Type,
@@ -1661,7 +1666,7 @@ extern class TypeInfo {
 }
 
 @:native('GraphQL\\Utils\\Utils')
-extern class Utils {
+@:noCompletion extern class Utils {
   public static function undefined(): Dynamic;
   public static function isInvalid(value: Dynamic): Bool;
   public static function assign(obj: Map<String, Dynamic>,
@@ -1703,13 +1708,13 @@ extern class Utils {
 }
 
 @:native('GraphQL\\Utils\\Value')
-extern class Value {
+@:noCompletion extern class Value {
   public static function coerceValue(value: Dynamic, type: InputType,
     ?blameNode: Dynamic, ?path: Array<Dynamic>): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\DocumentValidator')
-extern class DocumentValidator {
+@:noCompletion extern class DocumentValidator {
   public static function validate(schema: Schema, ast: DocumentNode,
     ?rules: Array<Dynamic>, ?typeInfo: TypeInfo): Array<php.Error>;
   public static function allRules(): Array<ValidationRule>;
@@ -1729,7 +1734,7 @@ extern class DocumentValidator {
 }
 
 @:native('GraphQL\\Validator\\ValidationContext')
-extern class ValidationContext {
+@:noCompletion extern class ValidationContext {
   public function new(schema: Schema, ast: DocumentNode,
     typeInfo: TypeInfo): Void;
   public function reportError(error: php.Error): Dynamic;
@@ -1750,13 +1755,13 @@ extern class ValidationContext {
 }
 
 @:native('GraphQL\\Validator\\Rules\\CustomValidationRule')
-extern class CustomValidationRule extends ValidationRule {
+@:noCompletion extern class CustomValidationRule extends ValidationRule {
   public function new(name: Dynamic, visitorFn: Dynamic): Void;
   public function getVisitor(context: ValidationContext): Array<php.Error>;
 }
 
 @:native('GraphQL\\Validator\\Rules\\DisableIntrospection')
-extern class DisableIntrospection extends QuerySecurityRule {
+@:noCompletion extern class DisableIntrospection extends QuerySecurityRule {
   @:phpClassConst static public final ENABLED: Dynamic;
   public function new(?enabled: Dynamic): Void;
   public function setEnabled(enabled: Dynamic): Dynamic;
@@ -1766,13 +1771,13 @@ extern class DisableIntrospection extends QuerySecurityRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\ExecutableDefinitions')
-extern class ExecutableDefinitions extends ValidationRule {
+@:noCompletion extern class ExecutableDefinitions extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function nonExecutableDefinitionMessage(defName: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\FieldsOnCorrectType')
-extern class FieldsOnCorrectType extends ValidationRule {
+@:noCompletion extern class FieldsOnCorrectType extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function undefinedFieldMessage(fieldName: String,
     type: String, suggestedTypeNames: Array<Dynamic>,
@@ -1780,7 +1785,7 @@ extern class FieldsOnCorrectType extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\FragmentsOnCompositeTypes')
-extern class FragmentsOnCompositeTypes extends ValidationRule {
+@:noCompletion extern class FragmentsOnCompositeTypes extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function inlineFragmentOnNonCompositeErrorMessage(type: Dynamic): Dynamic;
   public static function fragmentOnNonCompositeErrorMessage(fragName: Dynamic,
@@ -1788,7 +1793,7 @@ extern class FragmentsOnCompositeTypes extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\KnownArgumentNames')
-extern class KnownArgumentNames extends ValidationRule {
+@:noCompletion extern class KnownArgumentNames extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function unknownArgMessage(argName: Dynamic,
     fieldName: Dynamic, typeName: Dynamic,
@@ -1798,14 +1803,14 @@ extern class KnownArgumentNames extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\KnownArgumentNamesOnDirectives')
-extern class KnownArgumentNamesOnDirectives extends ValidationRule {
+@:noCompletion extern class KnownArgumentNamesOnDirectives extends ValidationRule {
   private static function unknownDirectiveArgMessage(argName: String,
     directionName: String): Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\KnownDirectives')
-extern class KnownDirectives extends ValidationRule {
+@:noCompletion extern class KnownDirectives extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function unknownDirectiveMessage(directiveName: Dynamic): Dynamic;
   public static function misplacedDirectiveMessage(directiveName: Dynamic,
@@ -1813,31 +1818,31 @@ extern class KnownDirectives extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\KnownFragmentNames')
-extern class KnownFragmentNames extends ValidationRule {
+@:noCompletion extern class KnownFragmentNames extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function unknownFragmentMessage(fragName: String): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\KnownTypeNames')
-extern class KnownTypeNames extends ValidationRule {
+@:noCompletion extern class KnownTypeNames extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function unknownTypeMessage(type: String,
     suggestedTypes: Array<Dynamic>): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\LoneAnonymousOperation')
-extern class LoneAnonymousOperation extends ValidationRule {
+@:noCompletion extern class LoneAnonymousOperation extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function anonOperationNotAloneMessage(): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\LoneSchemaDefinition')
-extern class LoneSchemaDefinition extends ValidationRule {
+@:noCompletion extern class LoneSchemaDefinition extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\NoFragmentCycles')
-extern class NoFragmentCycles extends ValidationRule {
+@:noCompletion extern class NoFragmentCycles extends ValidationRule {
   public var visitedFrags: Dynamic;
   public var spreadPath: Dynamic;
   public var spreadPathIndexByName: Dynamic;
@@ -1847,14 +1852,14 @@ extern class NoFragmentCycles extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\NoUndefinedVariables')
-extern class NoUndefinedVariables extends ValidationRule {
+@:noCompletion extern class NoUndefinedVariables extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function undefinedVarMessage(varName: Dynamic,
     ?opName: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\NoUnusedFragments')
-extern class NoUnusedFragments extends ValidationRule {
+@:noCompletion extern class NoUnusedFragments extends ValidationRule {
   public var operationDefs: Dynamic;
   public var fragmentDefs: Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
@@ -1862,7 +1867,7 @@ extern class NoUnusedFragments extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\NoUnusedVariables')
-extern class NoUnusedVariables extends ValidationRule {
+@:noCompletion extern class NoUnusedVariables extends ValidationRule {
   public var variableDefs: Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function unusedVariableMessage(varName: Dynamic,
@@ -1870,7 +1875,7 @@ extern class NoUnusedVariables extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\OverlappingFieldsCanBeMerged')
-extern class OverlappingFieldsCanBeMerged extends ValidationRule {
+@:noCompletion extern class OverlappingFieldsCanBeMerged extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function fieldsConflictMessage(responseName: String,
     reason: String): Dynamic;
@@ -1878,7 +1883,7 @@ extern class OverlappingFieldsCanBeMerged extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\PossibleFragmentSpreads')
-extern class PossibleFragmentSpreads extends ValidationRule {
+@:noCompletion extern class PossibleFragmentSpreads extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function typeIncompatibleAnonSpreadMessage(parentType: Dynamic,
     fragType: Dynamic): Dynamic;
@@ -1887,7 +1892,7 @@ extern class PossibleFragmentSpreads extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\ProvidedNonNullArguments')
-extern class ProvidedNonNullArguments extends ValidationRule {
+@:noCompletion extern class ProvidedNonNullArguments extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function missingFieldArgMessage(fieldName: Dynamic,
     argName: Dynamic, type: Dynamic): Dynamic;
@@ -1896,14 +1901,14 @@ extern class ProvidedNonNullArguments extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\ProvidedRequiredArgumentsOnDirectives')
-extern class ProvidedRequiredArgumentsOnDirectives extends ValidationRule {
+@:noCompletion extern class ProvidedRequiredArgumentsOnDirectives extends ValidationRule {
   private static function missingDirectiveArgMessage(directiveName: String,
     argName: String): Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\QueryComplexity')
-extern class QueryComplexity extends QuerySecurityRule {
+@:noCompletion extern class QueryComplexity extends QuerySecurityRule {
   public function new(maxQueryComplexity: Dynamic): Void;
   public function getVisitor(context: ValidationContext): Dynamic;
   public function getRawVariableValues(): Dynamic;
@@ -1917,7 +1922,7 @@ extern class QueryComplexity extends QuerySecurityRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\QueryDepth')
-extern class QueryDepth extends QuerySecurityRule {
+@:noCompletion extern class QueryDepth extends QuerySecurityRule {
   public function new(maxQueryDepth: Dynamic): Void;
   public function getVisitor(context: ValidationContext): Dynamic;
   public function getMaxQueryDepth(): Dynamic;
@@ -1928,7 +1933,7 @@ extern class QueryDepth extends QuerySecurityRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\QuerySecurityRule')
-extern class QuerySecurityRule extends ValidationRule {
+@:noCompletion extern class QuerySecurityRule extends ValidationRule {
   @:phpClassConst static public final DISABLED: Dynamic;
   private function checkIfGreaterOrEqualToZero(name: String,
     value: Int): Dynamic;
@@ -1945,7 +1950,7 @@ extern class QuerySecurityRule extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\ScalarLeafs')
-extern class ScalarLeafs extends ValidationRule {
+@:noCompletion extern class ScalarLeafs extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function noSubselectionAllowedMessage(field: Dynamic,
     type: Dynamic): Dynamic;
@@ -1954,27 +1959,27 @@ extern class ScalarLeafs extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\UniqueArgumentNames')
-extern class UniqueArgumentNames extends ValidationRule {
+@:noCompletion extern class UniqueArgumentNames extends ValidationRule {
   public var knownArgNames: Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function duplicateArgMessage(argName: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\UniqueDirectivesPerLocation')
-extern class UniqueDirectivesPerLocation extends ValidationRule {
+@:noCompletion extern class UniqueDirectivesPerLocation extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function duplicateDirectiveMessage(directiveName: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\UniqueFragmentNames')
-extern class UniqueFragmentNames extends ValidationRule {
+@:noCompletion extern class UniqueFragmentNames extends ValidationRule {
   public var knownFragmentNames: Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function duplicateFragmentNameMessage(fragName: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\UniqueInputFieldNames')
-extern class UniqueInputFieldNames extends ValidationRule {
+@:noCompletion extern class UniqueInputFieldNames extends ValidationRule {
   public var knownNames: Dynamic;
   public var knownNameStack: Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
@@ -1982,21 +1987,21 @@ extern class UniqueInputFieldNames extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\UniqueOperationNames')
-extern class UniqueOperationNames extends ValidationRule {
+@:noCompletion extern class UniqueOperationNames extends ValidationRule {
   public var knownOperationNames: Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function duplicateOperationNameMessage(operationName: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\UniqueVariableNames')
-extern class UniqueVariableNames extends ValidationRule {
+@:noCompletion extern class UniqueVariableNames extends ValidationRule {
   public var knownVariableNames: Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function duplicateVariableMessage(variableName: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\ValidationRule')
-extern class ValidationRule {
+@:noCompletion extern class ValidationRule {
   private var name: Dynamic;
   public function getName(): Dynamic;
   public function __invoke(context: ValidationContext): Dynamic;
@@ -2004,7 +2009,7 @@ extern class ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\ValuesOfCorrectType')
-extern class ValuesOfCorrectType extends ValidationRule {
+@:noCompletion extern class ValuesOfCorrectType extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function badValueMessage(typeName: Dynamic,
     valueName: Dynamic, ?message: Dynamic): Dynamic;
@@ -2018,21 +2023,21 @@ extern class ValuesOfCorrectType extends ValidationRule {
 }
 
 @:native('GraphQL\\Validator\\Rules\\VariablesAreInputTypes')
-extern class VariablesAreInputTypes extends ValidationRule {
+@:noCompletion extern class VariablesAreInputTypes extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function nonInputTypeOnVarMessage(variableName: Dynamic,
     typeName: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\VariablesDefaultValueAllowed')
-extern class VariablesDefaultValueAllowed extends ValidationRule {
+@:noCompletion extern class VariablesDefaultValueAllowed extends ValidationRule {
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function defaultForRequiredVarMessage(varName: Dynamic,
     type: Dynamic, guessType: Dynamic): Dynamic;
 }
 
 @:native('GraphQL\\Validator\\Rules\\VariablesInAllowedPosition')
-extern class VariablesInAllowedPosition extends ValidationRule {
+@:noCompletion extern class VariablesInAllowedPosition extends ValidationRule {
   public var varDefMap: Dynamic;
   public function getVisitor(context: ValidationContext): Dynamic;
   public static function badVarPosMessage(varName: Dynamic, varType: Dynamic,

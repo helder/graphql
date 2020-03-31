@@ -7,5 +7,8 @@
 	"contributors": ["benmerckx"],
 	"releasenote": "Initial",
 	"version": "0.0.0",
-	"url": "https://github.com/helder/graphql"
+	"url": "https://github.com/helder/graphql",
+	"dependencies": {
+		"tink_core": ""
+	}
 }

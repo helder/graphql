@@ -11,16 +11,6 @@ abstract Record<T>(Dynamic<T>) {
   }
 }
 
-abstract Args(Dynamic) {
-  @:op(a.b) inline static function get(args: Args, field: String) {
-    return untyped args[field];
-  }
-
-  @:op(a.b) inline static function set<V>(args: Args, field: String, v: V) {
-    return untyped args[field] = v;
-  }
-}
-
 @:keep
 private class ArrayOrObject {
   var arr = new NativeArray();
@@ -42,6 +32,17 @@ private class ArrayOrObject {
 }
 
 class Tools {
+  inline public static function toNativePromise<T>(promise: tink.core.Promise<T>) {
+    return new graphql.impl.Php.Deferred(() -> {
+      var res: Dynamic = null;
+      promise.handle(outcome -> switch outcome {
+        case Success(v): res = v;
+        case Failure(e): throw e;
+      });
+      return res;
+    });
+  }
+
   public static function haxify<T>(value: T): T {
     if (Global.is_object(value)) {
       var result = new NativeAssocArray();

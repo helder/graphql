@@ -3,6 +3,7 @@ package tests;
 import graphql.Language;
 import graphql.GraphQL;
 import graphql.Type;
+import graphql.Type.*;
 import tink.unit.Assert.*;
 
 class TestExecute {
@@ -13,14 +14,16 @@ class TestExecute {
       name: 'Query',
       fields: {
         hello: {
-          type: Type.string(),
+          type: string(),
           description: 'Greeting',
           args: {
             name: {
-              type: Type.string()
+              type: string()
             }
           },
-          resolve: (value, args) -> args.name
+          resolve: (value, args: {name: String}) -> {
+            return Promise.resolve(args.name);
+          }
         }
       }
     });
@@ -28,7 +31,7 @@ class TestExecute {
       query: query
     });
     final document = Language.parse('{greeting:hello(name:"me")}');
-    return GraphQL.execute(schema, document, null).next(res -> {
+    return GraphQL.execute(schema, document).next(res -> {
       return assert(res.data.greeting == 'me');
     });
   }

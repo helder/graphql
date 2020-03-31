@@ -6,47 +6,49 @@ import haxe.ds.ReadOnlyArray;
 import js.lib.Promise;
 import haxe.extern.EitherType;
 
-typedef Undefined = Dynamic;
-typedef ReadonlyArray<T> = ReadOnlyArray<T>;
-typedef Readonly<T> = T;
-typedef Record_<K, V> = DynamicAccess<V>;
-typedef Thunk<T> = EitherType<(() -> T), T>;
-typedef PromiseOrValue<T> = EitherType<Promise<T>, T>;
-typedef GraphQLFieldConfigMap<T, T2, T3> = Dynamic;
-typedef GraphQLFieldMap<T, T2> = Dynamic;
-typedef GraphQLOutputType = Dynamic;
-typedef GraphQLAbstractType = Dynamic;
+@:noCompletion typedef Undefined = Dynamic;
+@:noCompletion typedef ReadonlyArray<T> = ReadOnlyArray<T>;
+@:noCompletion typedef Readonly<T> = T;
+@:noCompletion typedef Record_<K, V> = DynamicAccess<V>;
+@:noCompletion typedef Thunk<T> = EitherType<(() -> T), T>;
+@:noCompletion typedef PromiseOrValue<T> = EitherType<Promise<T>, T>;
+@:noCompletion typedef GraphQLFieldConfigMap<T, T2, T3> = Dynamic;
+@:noCompletion typedef GraphQLFieldMap<T, T2> = Dynamic;
+@:noCompletion typedef GraphQLOutputType = Dynamic;
+@:noCompletion typedef GraphQLAbstractType = Dynamic;
 
-typedef Path = {
+@:noCompletion typedef Path = {
   prev: Path,
   key: EitherType<String, Float>
 };
 
-typedef GraphQLFieldResolver<TSource, TContext, TArgs> = (source: TSource,
-  args: TArgs, context: TContext, info: GraphQLResolveInfo) -> Dynamic;
+@:noCompletion typedef GraphQLFieldResolver<TSource, TContext,
+  TArgs> = (source: TSource, args: TArgs, context: TContext,
+  info: GraphQLResolveInfo) -> Dynamic;
 
-typedef GraphQLIsTypeOfFn<TSource, TContext> = (source: TSource,
-  context: TContext, info: GraphQLResolveInfo) -> PromiseOrValue<Bool>;
+@:noCompletion typedef GraphQLIsTypeOfFn<TSource, TContext> = (source: TSource,
+  context: TContext,
+  info: GraphQLResolveInfo) -> PromiseOrValue<Bool>;
 
-typedef GraphQLInputType = Dynamic;
-typedef GraphQLDirective = Dynamic;
-typedef GraphQLInputFieldConfigMap = Dynamic;
-typedef GraphQLLeafType = Dynamic;
-typedef GraphQLEnumValueConfigMap = Dynamic;
-typedef GraphQLInputFieldMap = Dynamic;
-typedef GraphQLCompositeType = Dynamic;
-typedef GraphQLWrappingType = Dynamic;
-typedef GraphQLFieldConfigArgumentMap = Dynamic;
-typedef TypeMap = Dynamic;
-typedef GraphQLNamedType = Dynamic;
+@:noCompletion typedef GraphQLInputType = Dynamic;
+@:noCompletion typedef GraphQLDirective = Dynamic;
+@:noCompletion typedef GraphQLInputFieldConfigMap = Dynamic;
+@:noCompletion typedef GraphQLLeafType = Dynamic;
+@:noCompletion typedef GraphQLEnumValueConfigMap = Dynamic;
+@:noCompletion typedef GraphQLInputFieldMap = Dynamic;
+@:noCompletion typedef GraphQLCompositeType = Dynamic;
+@:noCompletion typedef GraphQLWrappingType = Dynamic;
+@:noCompletion typedef GraphQLFieldConfigArgumentMap = Dynamic;
+@:noCompletion typedef TypeMap = Dynamic;
+@:noCompletion typedef GraphQLNamedType = Dynamic;
 
-typedef ASTSourceLocation = {
+@:noCompletion typedef ASTSourceLocation = {
   var line: Float;
   var column: Float;
 };
 
 @:jsRequire('graphql/language/source')
-extern class Source {
+@:noCompletion extern class Source {
   var body: String;
   var name: String;
   var locationOffset: ASTSourceLocation;
@@ -54,12 +56,12 @@ extern class Source {
     ?locationOffset: ASTSourceLocation): Void;
 }
 
-typedef TokenKind = String;
-typedef TokenKindEnum = String;
-typedef TypeNode = String;
+@:noCompletion typedef TokenKind = String;
+@:noCompletion typedef TokenKindEnum = String;
+@:noCompletion typedef TypeNode = String;
 
 // languae/ast
-typedef Location = {
+@:noCompletion typedef Location = {
   var start: Float;
   var end: Float;
   var startToken: Token;
@@ -67,7 +69,7 @@ typedef Location = {
   var source: Source;
 };
 
-typedef Token = {
+@:noCompletion typedef Token = {
   var kind: TokenKindEnum;
   var start: Float;
   var end: Float;
@@ -78,7 +80,7 @@ typedef Token = {
   var next: Token;
 };
 
-typedef ASTKindToNode = {
+@:noCompletion typedef ASTKindToNode = {
   var Name: NameNode;
   var Document: DocumentNode;
   var OperationDefinition: OperationDefinitionNode;
@@ -124,26 +126,26 @@ typedef ASTKindToNode = {
   var InputObjectTypeExtension: InputObjectTypeExtensionNode;
 };
 
-typedef NameNode = {
+@:noCompletion typedef NameNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var value: String;
 };
 
-typedef DocumentNode = {
+@:noCompletion typedef DocumentNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var definitions: ReadonlyArray<DefinitionNode>;
 };
 
-typedef DefinitionNode = Dynamic;
-typedef OperationTypeNode = Dynamic;
-typedef ValueNode = Dynamic;
-typedef SelectionNode = Dynamic;
+@:noCompletion typedef DefinitionNode = Dynamic;
+@:noCompletion typedef OperationTypeNode = Dynamic;
+@:noCompletion typedef ValueNode = Dynamic;
+@:noCompletion typedef SelectionNode = Dynamic;
 
-typedef OperationDefinitionNode = {
+@:noCompletion typedef OperationDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -157,7 +159,7 @@ typedef OperationDefinitionNode = {
   var selectionSet: SelectionSetNode;
 };
 
-typedef VariableDefinitionNode = {
+@:noCompletion typedef VariableDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -169,21 +171,21 @@ typedef VariableDefinitionNode = {
   var directives: ReadonlyArray<DirectiveNode>;
 };
 
-typedef VariableNode = {
+@:noCompletion typedef VariableNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var name: NameNode;
 };
 
-typedef SelectionSetNode = {
+@:noCompletion typedef SelectionSetNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var selections: ReadonlyArray<SelectionNode>;
 };
 
-typedef FieldNode = {
+@:noCompletion typedef FieldNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -198,7 +200,7 @@ typedef FieldNode = {
   var selectionSet: SelectionSetNode;
 };
 
-typedef ArgumentNode = {
+@:noCompletion typedef ArgumentNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -206,7 +208,7 @@ typedef ArgumentNode = {
   var value: ValueNode;
 };
 
-typedef FragmentSpreadNode = {
+@:noCompletion typedef FragmentSpreadNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -215,7 +217,7 @@ typedef FragmentSpreadNode = {
   var directives: ReadonlyArray<DirectiveNode>;
 };
 
-typedef InlineFragmentNode = {
+@:noCompletion typedef InlineFragmentNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -226,7 +228,7 @@ typedef InlineFragmentNode = {
   var selectionSet: SelectionSetNode;
 };
 
-typedef FragmentDefinitionNode = {
+@:noCompletion typedef FragmentDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -239,21 +241,21 @@ typedef FragmentDefinitionNode = {
   var selectionSet: SelectionSetNode;
 };
 
-typedef IntValueNode = {
+@:noCompletion typedef IntValueNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var value: String;
 };
 
-typedef FloatValueNode = {
+@:noCompletion typedef FloatValueNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var value: String;
 };
 
-typedef StringValueNode = {
+@:noCompletion typedef StringValueNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -262,41 +264,41 @@ typedef StringValueNode = {
   var block: Bool;
 };
 
-typedef BooleanValueNode = {
+@:noCompletion typedef BooleanValueNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var value: Bool;
 };
 
-typedef NullValueNode = {
+@:noCompletion typedef NullValueNode = {
   var kind: String;
   @:optional
   var loc: Location;
 };
 
-typedef EnumValueNode = {
+@:noCompletion typedef EnumValueNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var value: String;
 };
 
-typedef ListValueNode = {
+@:noCompletion typedef ListValueNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var values: ReadonlyArray<ValueNode>;
 };
 
-typedef ObjectValueNode = {
+@:noCompletion typedef ObjectValueNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var fields: ReadonlyArray<ObjectFieldNode>;
 };
 
-typedef ObjectFieldNode = {
+@:noCompletion typedef ObjectFieldNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -304,7 +306,7 @@ typedef ObjectFieldNode = {
   var value: ValueNode;
 };
 
-typedef DirectiveNode = {
+@:noCompletion typedef DirectiveNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -313,28 +315,28 @@ typedef DirectiveNode = {
   var arguments: ReadonlyArray<ArgumentNode>;
 };
 
-typedef NamedTypeNode = {
+@:noCompletion typedef NamedTypeNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var name: NameNode;
 };
 
-typedef ListTypeNode = {
+@:noCompletion typedef ListTypeNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var type: TypeNode;
 };
 
-typedef NonNullTypeNode = {
+@:noCompletion typedef NonNullTypeNode = {
   var kind: String;
   @:optional
   var loc: Location;
   var type: haxe.extern.EitherType<NamedTypeNode, ListTypeNode>;
 };
 
-typedef SchemaDefinitionNode = {
+@:noCompletion typedef SchemaDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -343,7 +345,7 @@ typedef SchemaDefinitionNode = {
   var operationTypes: ReadonlyArray<OperationTypeDefinitionNode>;
 };
 
-typedef OperationTypeDefinitionNode = {
+@:noCompletion typedef OperationTypeDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -351,7 +353,7 @@ typedef OperationTypeDefinitionNode = {
   var type: NamedTypeNode;
 };
 
-typedef ScalarTypeDefinitionNode = {
+@:noCompletion typedef ScalarTypeDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -362,7 +364,7 @@ typedef ScalarTypeDefinitionNode = {
   var directives: ReadonlyArray<DirectiveNode>;
 };
 
-typedef ObjectTypeDefinitionNode = {
+@:noCompletion typedef ObjectTypeDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -377,7 +379,7 @@ typedef ObjectTypeDefinitionNode = {
   var fields: ReadonlyArray<FieldDefinitionNode>;
 };
 
-typedef FieldDefinitionNode = {
+@:noCompletion typedef FieldDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -391,7 +393,7 @@ typedef FieldDefinitionNode = {
   var directives: ReadonlyArray<DirectiveNode>;
 };
 
-typedef InputValueDefinitionNode = {
+@:noCompletion typedef InputValueDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -405,7 +407,7 @@ typedef InputValueDefinitionNode = {
   var directives: ReadonlyArray<DirectiveNode>;
 };
 
-typedef InterfaceTypeDefinitionNode = {
+@:noCompletion typedef InterfaceTypeDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -418,7 +420,7 @@ typedef InterfaceTypeDefinitionNode = {
   var fields: ReadonlyArray<FieldDefinitionNode>;
 };
 
-typedef UnionTypeDefinitionNode = {
+@:noCompletion typedef UnionTypeDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -431,7 +433,7 @@ typedef UnionTypeDefinitionNode = {
   var types: ReadonlyArray<NamedTypeNode>;
 };
 
-typedef EnumTypeDefinitionNode = {
+@:noCompletion typedef EnumTypeDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -444,7 +446,7 @@ typedef EnumTypeDefinitionNode = {
   var values: ReadonlyArray<EnumValueDefinitionNode>;
 };
 
-typedef EnumValueDefinitionNode = {
+@:noCompletion typedef EnumValueDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -455,7 +457,7 @@ typedef EnumValueDefinitionNode = {
   var directives: ReadonlyArray<DirectiveNode>;
 };
 
-typedef InputObjectTypeDefinitionNode = {
+@:noCompletion typedef InputObjectTypeDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -468,7 +470,7 @@ typedef InputObjectTypeDefinitionNode = {
   var fields: ReadonlyArray<InputValueDefinitionNode>;
 };
 
-typedef DirectiveDefinitionNode = {
+@:noCompletion typedef DirectiveDefinitionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -481,7 +483,7 @@ typedef DirectiveDefinitionNode = {
   var locations: ReadonlyArray<NameNode>;
 };
 
-typedef SchemaExtensionNode = {
+@:noCompletion typedef SchemaExtensionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -489,7 +491,7 @@ typedef SchemaExtensionNode = {
   @:optional var operationTypes: ReadonlyArray<OperationTypeDefinitionNode>;
 };
 
-typedef ScalarTypeExtensionNode = {
+@:noCompletion typedef ScalarTypeExtensionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -498,7 +500,7 @@ typedef ScalarTypeExtensionNode = {
   var directives: ReadonlyArray<DirectiveNode>;
 };
 
-typedef ObjectTypeExtensionNode = {
+@:noCompletion typedef ObjectTypeExtensionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -511,7 +513,7 @@ typedef ObjectTypeExtensionNode = {
   var fields: ReadonlyArray<FieldDefinitionNode>;
 };
 
-typedef InterfaceTypeExtensionNode = {
+@:noCompletion typedef InterfaceTypeExtensionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -522,7 +524,7 @@ typedef InterfaceTypeExtensionNode = {
   var fields: ReadonlyArray<FieldDefinitionNode>;
 };
 
-typedef UnionTypeExtensionNode = {
+@:noCompletion typedef UnionTypeExtensionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -533,7 +535,7 @@ typedef UnionTypeExtensionNode = {
   var types: ReadonlyArray<NamedTypeNode>;
 };
 
-typedef EnumTypeExtensionNode = {
+@:noCompletion typedef EnumTypeExtensionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -544,7 +546,7 @@ typedef EnumTypeExtensionNode = {
   var values: ReadonlyArray<EnumValueDefinitionNode>;
 };
 
-typedef InputObjectTypeExtensionNode = {
+@:noCompletion typedef InputObjectTypeExtensionNode = {
   var kind: String;
   @:optional
   var loc: Location;
@@ -559,9 +561,9 @@ typedef InputObjectTypeExtensionNode = {
 
 interface GraphQLType {}
 interface GraphQLNullableType {}
-typedef Maybe<T> = Null<T>;
+@:noCompletion typedef Maybe<T> = Null<T>;
 
-extern class GraphQLList<T /*:(GraphQLType)*/> {
+@:noCompletion extern class GraphQLList<T /*:(GraphQLType)*/> {
   function new(type: T): Void;
   var ofType: T;
   function toString(): String;
@@ -569,9 +571,9 @@ extern class GraphQLList<T /*:(GraphQLType)*/> {
   function inspect(): String;
 }
 
-typedef _GraphQLList<T:(GraphQLType)> = Constructible<GraphQLList<T>>;
+@:noCompletion typedef _GraphQLList<T:(GraphQLType)> = Constructible<GraphQLList<T>>;
 
-extern class GraphQLNonNull<T /*:(GraphQLNullableType)*/> {
+@:noCompletion extern class GraphQLNonNull<T /*:(GraphQLNullableType)*/> {
   function new(type: T): Void;
   var ofType: T;
   function toString(): String;
@@ -579,10 +581,10 @@ extern class GraphQLNonNull<T /*:(GraphQLNullableType)*/> {
   function inspect(): String;
 }
 
-typedef _GraphQLNonNull<T:(GraphQLNullableType)> = Constructible<GraphQLNonNull<T>>;
+@:noCompletion typedef _GraphQLNonNull<T:(GraphQLNullableType)> = Constructible<GraphQLNonNull<T>>;
 
 @:jsRequire('graphql/type/definition', 'GraphQLScalarType')
-extern class GraphQLScalarType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLScalarType implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var serialize: GraphQLScalarSerializer<Dynamic>;
@@ -598,15 +600,15 @@ extern class GraphQLScalarType implements GraphQLType implements GraphQLNullable
   function inspect(): String;
 }
 
-typedef GraphQLScalarSerializer<TExternal> = (value: Dynamic) ->
+@:noCompletion typedef GraphQLScalarSerializer<TExternal> = (value: Dynamic) ->
   Maybe<TExternal>;
-typedef GraphQLScalarValueParser<TInternal> = (value: Dynamic) ->
+@:noCompletion typedef GraphQLScalarValueParser<TInternal> = (value: Dynamic) ->
   Maybe<TInternal>;
 
-typedef GraphQLScalarLiteralParser<TInternal> = (valueNode: ValueNode,
+@:noCompletion typedef GraphQLScalarLiteralParser<TInternal> = (valueNode: ValueNode,
   variables: Maybe<DynamicAccess<Dynamic>>) -> Maybe<TInternal>;
 
-typedef GraphQLScalarTypeConfig<TInternal, TExternal> = {
+@:noCompletion typedef GraphQLScalarTypeConfig<TInternal, TExternal> = {
   var name: String;
   @:optional
   var description: Maybe<String>;
@@ -624,7 +626,7 @@ typedef GraphQLScalarTypeConfig<TInternal, TExternal> = {
 };
 
 @:jsRequire('graphql/type/definition', 'GraphQLObjectType')
-extern class GraphQLObjectType /*<TSource, TContext, TArgs>*/ implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLObjectType /*<TSource, TContext, TArgs>*/ implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var isTypeOf: Maybe<GraphQLIsTypeOfFn<Dynamic, Dynamic>>;
@@ -641,7 +643,7 @@ extern class GraphQLObjectType /*<TSource, TContext, TArgs>*/ implements GraphQL
   function inspect(): String;
 }
 
-typedef GraphQLObjectTypeConfig<TSource, TContext, TArgs> = {
+@:noCompletion typedef GraphQLObjectTypeConfig<TSource, TContext, TArgs> = {
   var name: String;
   @:optional
   var description: Maybe<String>;
@@ -658,7 +660,7 @@ typedef GraphQLObjectTypeConfig<TSource, TContext, TArgs> = {
   var extensionASTNodes: Maybe<ReadonlyArray<ObjectTypeExtensionNode>>;
 };
 
-typedef GraphQLResolveInfo = {
+@:noCompletion typedef GraphQLResolveInfo = {
   var fieldName: String;
   var fieldNodes: ReadonlyArray<FieldNode>;
   var returnType: GraphQLOutputType;
@@ -671,7 +673,7 @@ typedef GraphQLResolveInfo = {
   var variableValues: {};
 };
 
-typedef GraphQLFieldConfig<TSource, TContext, TArgs> = {
+@:noCompletion typedef GraphQLFieldConfig<TSource, TContext, TArgs> = {
   @:optional
   var description: Maybe<String>;
   var type: GraphQLOutputType;
@@ -689,7 +691,7 @@ typedef GraphQLFieldConfig<TSource, TContext, TArgs> = {
   var astNode: Maybe<FieldDefinitionNode>;
 };
 
-typedef GraphQLArgumentConfig = {
+@:noCompletion typedef GraphQLArgumentConfig = {
   @:optional
   var description: Maybe<String>;
   var type: GraphQLInputType;
@@ -701,7 +703,7 @@ typedef GraphQLArgumentConfig = {
   var astNode: Maybe<InputValueDefinitionNode>;
 };
 
-typedef GraphQLField<TSource, TContext, TArgs> = {
+@:noCompletion typedef GraphQLField<TSource, TContext, TArgs> = {
   var name: String;
   var description: Maybe<String>;
   var type: GraphQLOutputType;
@@ -719,7 +721,7 @@ typedef GraphQLField<TSource, TContext, TArgs> = {
   var astNode: Maybe<FieldDefinitionNode>;
 };
 
-typedef GraphQLArgument = {
+@:noCompletion typedef GraphQLArgument = {
   var name: String;
   var description: Maybe<String>;
   var type: GraphQLInputType;
@@ -729,7 +731,7 @@ typedef GraphQLArgument = {
 };
 
 @:jsRequire('graphql/type/definition', 'GraphQLInterfaceType')
-extern class GraphQLInterfaceType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLInterfaceType implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var resolveType: Maybe<GraphQLTypeResolver<Dynamic, Dynamic, Dynamic>>;
@@ -746,12 +748,12 @@ extern class GraphQLInterfaceType implements GraphQLType implements GraphQLNulla
   function inspect(): String;
 }
 
-typedef GraphQLTypeResolver<TSource, TContext, TArgs> = (value: TSource,
-  context: TContext, info: GraphQLResolveInfo,
+@:noCompletion typedef GraphQLTypeResolver<TSource, TContext,
+  TArgs> = (value: TSource, context: TContext, info: GraphQLResolveInfo,
   abstractType: GraphQLAbstractType) ->
   PromiseOrValue<Maybe<EitherType<GraphQLObjectType, String>>>;
 
-typedef GraphQLInterfaceTypeConfig<TSource, TContext, TArgs> = {
+@:noCompletion typedef GraphQLInterfaceTypeConfig<TSource, TContext, TArgs> = {
   var name: String;
   @:optional
   var description: Maybe<String>;
@@ -767,7 +769,7 @@ typedef GraphQLInterfaceTypeConfig<TSource, TContext, TArgs> = {
 };
 
 @:jsRequire('graphql/type/definition', 'GraphQLUnionType')
-extern class GraphQLUnionType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLUnionType implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var resolveType: Maybe<GraphQLTypeResolver<Dynamic, Dynamic, Dynamic>>;
@@ -782,7 +784,7 @@ extern class GraphQLUnionType implements GraphQLType implements GraphQLNullableT
   function inspect(): String;
 }
 
-typedef GraphQLUnionTypeConfig<TSource, TContext> = {
+@:noCompletion typedef GraphQLUnionTypeConfig<TSource, TContext> = {
   var name: String;
   @:optional
   var description: Maybe<String>;
@@ -798,7 +800,7 @@ typedef GraphQLUnionTypeConfig<TSource, TContext> = {
 };
 
 @:jsRequire('graphql/type/definition', 'GraphQLEnumType')
-extern class GraphQLEnumType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLEnumType implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
@@ -817,7 +819,7 @@ extern class GraphQLEnumType implements GraphQLType implements GraphQLNullableTy
   function inspect(): String;
 }
 
-typedef GraphQLEnumTypeConfig = {
+@:noCompletion typedef GraphQLEnumTypeConfig = {
   var name: String;
   @:optional
   var description: Maybe<String>;
@@ -830,7 +832,7 @@ typedef GraphQLEnumTypeConfig = {
   var extensionASTNodes: Maybe<ReadonlyArray<EnumTypeExtensionNode>>;
 };
 
-typedef GraphQLEnumValueConfig = {
+@:noCompletion typedef GraphQLEnumValueConfig = {
   @:optional
   var description: Maybe<String>;
   @:optional
@@ -843,7 +845,7 @@ typedef GraphQLEnumValueConfig = {
   var astNode: Maybe<EnumValueDefinitionNode>;
 };
 
-typedef GraphQLEnumValue = {
+@:noCompletion typedef GraphQLEnumValue = {
   var name: String;
   var description: Maybe<String>;
   var value: Dynamic;
@@ -856,7 +858,7 @@ typedef GraphQLEnumValue = {
 };
 
 @:jsRequire('graphql/type/definition', 'GraphQLInputObjectType')
-extern class GraphQLInputObjectType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLInputObjectType implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
@@ -870,7 +872,7 @@ extern class GraphQLInputObjectType implements GraphQLType implements GraphQLNul
   function inspect(): String;
 }
 
-typedef GraphQLInputObjectTypeConfig = {
+@:noCompletion typedef GraphQLInputObjectTypeConfig = {
   var name: String;
   @:optional
   var description: Maybe<String>;
@@ -883,7 +885,7 @@ typedef GraphQLInputObjectTypeConfig = {
   var extensionASTNodes: Maybe<ReadonlyArray<InputObjectTypeExtensionNode>>;
 };
 
-typedef GraphQLInputFieldConfig = {
+@:noCompletion typedef GraphQLInputFieldConfig = {
   @:optional
   var description: Maybe<String>;
   var type: GraphQLInputType;
@@ -895,7 +897,7 @@ typedef GraphQLInputFieldConfig = {
   var astNode: Maybe<InputValueDefinitionNode>;
 };
 
-typedef GraphQLInputField = {
+@:noCompletion typedef GraphQLInputField = {
   var name: String;
   @:optional
   var description: Maybe<String>;
@@ -908,7 +910,7 @@ typedef GraphQLInputField = {
 };
 
 @:jsRequire('graphql/type/definition')
-extern class DefinitionTopLevel {
+@:noCompletion extern class DefinitionTopLevel {
   static function isType(type: Dynamic): Bool;
   static function assertType(type: Dynamic): GraphQLType;
   static function isScalarType(type: Dynamic): Bool;
@@ -953,7 +955,7 @@ extern class DefinitionTopLevel {
 }
 
 @:jsRequire('graphql/type/schema', 'GraphQLSchema')
-extern class GraphQLSchema {
+@:noCompletion extern class GraphQLSchema {
   var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   var astNode: Maybe<SchemaDefinitionNode>;
   var extensionASTNodes: Maybe<ReadonlyArray<SchemaExtensionNode>>;
@@ -971,14 +973,14 @@ extern class GraphQLSchema {
   function toConfig(): Dynamic;
 }
 
-typedef GraphQLSchemaValidationOptions = {
+@:noCompletion typedef GraphQLSchemaValidationOptions = {
   @:optional
   var assumeValid: Bool;
   @:optional
   var allowedLegacyNames: Maybe<ReadonlyArray<String>>;
 };
 
-typedef GraphQLSchemaConfig = {
+@:noCompletion typedef GraphQLSchemaConfig = {
   > GraphQLSchemaValidationOptions,
   var query: Maybe<GraphQLObjectType>;
   @:optional
@@ -998,14 +1000,14 @@ typedef GraphQLSchemaConfig = {
 };
 
 @:jsRequire('graphql/type/schema')
-extern class SchemaTopLevel {
+@:noCompletion extern class SchemaTopLevel {
   static function isSchema(schema: Dynamic): Bool;
   static function assertSchema(schema: Dynamic): GraphQLSchema;
 }
 
-typedef GraphQLError = Dynamic;
+@:noCompletion typedef GraphQLError = Dynamic;
 
-typedef ExecutionContext = {
+@:noCompletion typedef ExecutionContext = {
   var schema: GraphQLSchema;
   var fragments: {};
   var rootValue: Dynamic;
@@ -1016,9 +1018,9 @@ typedef ExecutionContext = {
   var errors: Array<GraphQLError>;
 };
 
-typedef ExecutionResultDataDefault = {};
+@:noCompletion typedef ExecutionResultDataDefault = {};
 
-typedef ExecutionResult<TData> = {
+@:noCompletion typedef ExecutionResult<TData> = {
   @:optional
   var errors: ReadonlyArray<GraphQLError>;
   @:optional
@@ -1026,7 +1028,7 @@ typedef ExecutionResult<TData> = {
 };
 
 @:jsRequire('graphql/execution')
-extern class ExecuteTopLevel {
+@:noCompletion extern class ExecuteTopLevel {
   static function execute<TData>(schema: GraphQLSchema,
     document: DocumentNode, ?rootValue: Dynamic, ?contextValue: Dynamic,
     ?variableValues: Maybe<{}>, ?operationName: Maybe<String>,
@@ -1035,7 +1037,7 @@ extern class ExecuteTopLevel {
       Dynamic>>): PromiseOrValue<ExecutionResult<TData>>;
 }
 
-typedef ParseOptions = {
+@:noCompletion typedef ParseOptions = {
   @:optional
   var noLocation: Bool;
   @:optional
@@ -1047,7 +1049,7 @@ typedef ParseOptions = {
 };
 
 @:jsRequire('graphql/language/parser')
-extern class ParserTopLevel {
+@:noCompletion extern class ParserTopLevel {
   static function parse(source: haxe.extern.EitherType<String, Source>,
     ?options: ParseOptions): DocumentNode;
   static function parseValue(source: haxe.extern.EitherType<String, Source>,
