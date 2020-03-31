@@ -104,7 +104,8 @@ typedef GraphQLObjectType = GraphQLObjectTypeImpl;
 typedef GraphQLObjectTypeConfig = Struct<{
   name: String,
   ?description: String,
-  ?interfaces: Array<GraphQLInterfaceType>,
+  ?interfaces: Thunk<Array<GraphQLInterfaceType>>,
+  ?isTypeOf: (value: Dynamic, info: GraphQLResolveInfo) -> Bool,
   ?fields: Thunk<GraphQLFieldMap>
 }>;
 
