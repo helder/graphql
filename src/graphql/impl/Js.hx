@@ -563,6 +563,7 @@ interface GraphQLType {}
 interface GraphQLNullableType {}
 @:noCompletion typedef Maybe<T> = Null<T>;
 
+@:jsRequire('graphql/type/definition', 'GraphQLList')
 @:noCompletion extern class GraphQLList<T /*:(GraphQLType)*/> {
   function new(type: T): Void;
   var ofType: T;
@@ -573,6 +574,7 @@ interface GraphQLNullableType {}
 
 @:noCompletion typedef _GraphQLList<T:(GraphQLType)> = Constructible<GraphQLList<T>>;
 
+@:jsRequire('graphql/type/definition', 'GraphQLNonNull')
 @:noCompletion extern class GraphQLNonNull<T /*:(GraphQLNullableType)*/> {
   function new(type: T): Void;
   var ofType: T;
