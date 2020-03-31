@@ -53,6 +53,12 @@ typedef GraphQLFieldResolver<T> = (source: Dynamic, args: Dynamic,
   context: Dynamic, info: GraphQLResolveInfo) -> Promise<T>;
 
 abstract Resolver<T>(Function) {
+  @:from public static function from1<T>(func: (source: Dynamic) ->
+    Promise<T>): Resolver<T> {
+    return cast((source, args, context,
+        info) -> Tools.toNativePromise(func(source)));
+  }
+
   @:from public static function from2<T>(func: (source: Dynamic,
     args: Dynamic) -> Promise<T>): Resolver<T> {
     return cast((source, args, context,
