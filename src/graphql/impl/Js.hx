@@ -1029,6 +1029,17 @@ interface GraphQLNullableType {}
   var data: TData;
 };
 
+@:jsRequire('graphql')
+@:noCompletion extern class GraphqlTopLevel {
+  static function graphql<TData>(schema: GraphQLSchema,
+    source: haxe.extern.EitherType<Source, String>, ?rootValue: Dynamic,
+    ?contextValue: Dynamic, ?variableValues: Maybe<{}>,
+    ?operationName: Maybe<String>,
+    ?fieldResolver: Maybe<GraphQLFieldResolver<Dynamic, Dynamic, Dynamic>>,
+    ?typeResolver: Maybe<GraphQLTypeResolver<Dynamic, Dynamic,
+      Dynamic>>): Promise<ExecutionResult<TData>>;
+}
+
 @:jsRequire('graphql/execution')
 @:noCompletion extern class ExecuteTopLevel {
   static function execute<TData>(schema: GraphQLSchema,

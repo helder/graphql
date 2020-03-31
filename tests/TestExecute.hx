@@ -30,8 +30,7 @@ class TestExecute {
     final schema = new GraphQLSchema({
       query: query
     });
-    final document = Language.parse('{greeting:hello(name:"me")}');
-    return GraphQL.execute(schema, document).next(res -> {
+    return GraphQL.graphql(schema, '{greeting:hello(name:"me")}').next(res -> {
       return assert(res.data.greeting == 'me');
     });
   }
