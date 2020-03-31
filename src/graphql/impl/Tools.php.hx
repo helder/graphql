@@ -12,7 +12,7 @@ abstract Record<T>(Dynamic<T>) {
 }
 
 @:keep
-private class ArrayOrObject {
+private class ArrayOrObject implements JsonSerializable<Dynamic> {
   var arr = new NativeArray();
   var length: Int;
 
@@ -29,6 +29,10 @@ private class ArrayOrObject {
   @:keep @:phpMagic
   function __set(name: String, v: Dynamic)
     return arr[name] = v;
+
+  @:keep
+  function jsonSerialize()
+    return arr;
 }
 
 class Tools {
