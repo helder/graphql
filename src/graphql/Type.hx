@@ -222,6 +222,9 @@ class Type {
   inline public static function field(config: GraphQLFieldConfig)
     return config;
 
+  inline public static function fields(config: GraphQLFieldMap)
+    return config;
+
   inline public static function resolver<T>(resolver: Resolver<T>)
     return resolver;
 }
