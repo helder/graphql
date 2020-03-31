@@ -13,6 +13,7 @@ using tink.CoreApi;
 @:coreType abstract GraphQLType //
   from GraphQLOutputType //
   from GraphQLInputType //
+  from GraphQLList<GraphQLType> //
   from GraphQLNonNull<GraphQLType> //
 {}
 
@@ -20,7 +21,7 @@ using tink.CoreApi;
   from GraphQLScalarType<Dynamic> //
   from GraphQLEnumType //
   from GraphQLInputObjectType //
-  from GraphQLList<GraphQLOutputType> //
+  from GraphQLList<GraphQLInputType> //
   from GraphQLNonNull<GraphQLInputType> //
 {}
 
