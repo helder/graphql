@@ -101,7 +101,7 @@ typedef GraphQLSchema = GraphQLSchemaImpl;
 typedef GraphQLSchemaConfig = Struct<{
   query: GraphQLObjectType,
   ?mutation: GraphQLObjectType,
-  ?types: Array<GraphQLType>
+  ?types: InputArray<GraphQLType>
 }>;
 
 // https://graphql.org/graphql-js/type/#graphqlobjecttype
@@ -111,7 +111,7 @@ typedef GraphQLObjectType = GraphQLObjectTypeImpl;
 typedef GraphQLObjectTypeConfig = Struct<{
   name: String,
   ?description: String,
-  ?interfaces: Thunk<Array<GraphQLInterfaceType>>,
+  ?interfaces: Thunk<InputArray<GraphQLInterfaceType>>,
   ?isTypeOf: (value: Dynamic, info: GraphQLResolveInfo) -> Bool,
   ?fields: Thunk<GraphQLFieldMap>
 }>;
@@ -134,7 +134,7 @@ typedef GraphQLUnionType = GraphQLUnionTypeImpl;
 typedef GraphQLUnionTypeConfig = Struct<{
   name: String,
   ?description: String,
-  types: Thunk<Array<GraphQLObjectType>>,
+  types: Thunk<InputArray<GraphQLObjectType>>,
   ?resolveType: (value: Dynamic) -> GraphQLObjectType,
 }>;
 

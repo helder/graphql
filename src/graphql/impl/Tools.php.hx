@@ -4,9 +4,14 @@ import php.*;
 
 typedef Struct<T:{}> = NativeStructArray<T>;
 
+abstract InputArray<T>(NativeArray) from NativeArray {
+  @:from inline static function fromArray<T>(array: Array<T>): InputArray<T>
+    return php.Lib.toPhpArray(array);
+}
+
 @:forward
 abstract Record<T>(Dynamic<T>) {
-  @:from public static function fromDynamic<T>(obj: Dynamic<T>): Record<T> {
+  @:from inline public static function fromDynamic<T>(obj: Dynamic<T>): Record<T> {
     return cast php.Syntax.array(obj);
   }
 }
@@ -37,6 +42,8 @@ private class ArrayOrObject implements JsonSerializable<Dynamic> {
 
 class Tools {
   inline public static function toNativePromise<T>(promise: tink.core.Promise<T>) {
+    if (!tink.core.Future.isFuture(promise))
+      return cast promise;
     return new graphql.impl.Php.Deferred(() -> {
       var res: Dynamic = null;
       promise.handle(outcome -> switch outcome {
