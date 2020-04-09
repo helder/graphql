@@ -5,58 +5,74 @@ import graphql.impl.Php;
 import graphql.Type;
 import graphql.Type.GraphQLType;
 
-/*class Tools {
-  public static function convert(value: Dynamic): Dynamic {
-    if (Std.isOfType(value, Array)) {
-      var result = new NativeIndexedArray();
-      Syntax.foreach(value.arr, function(index: Int, item: Dynamic) {
-        result[index] = convert(item);
-      });
-      return result;
-    }
-    if (Boot.isAnon(value)) {
-      var result = new NativeAssocArray();
-      Syntax.foreach(value, function(fieldName: String, fieldValue: Dynamic) {
-        result[fieldName] = convert(fieldValue);
-      });
-      return result;
-    }
-    return value;
-  }
-}*/
 abstract GraphQLSchemaImpl(Schema) {
   inline public function new(config: GraphQLSchemaConfig)
     this = new Schema(config);
+
+  public var config(get, never): GraphQLSchemaConfig;
+
+  function get_config()
+    return untyped this.config;
 }
 
 abstract GraphQLObjectTypeImpl(ObjectType) {
   inline public function new(config: GraphQLObjectTypeConfig)
     this = new ObjectType(config);
+
+  public var config(get, never): GraphQLObjectTypeConfig;
+
+  function get_config()
+    return untyped this.config;
 }
 
 abstract GraphQLScalarTypeImpl<T>(ScalarType) {
   inline public function new(config: GraphQLScalarTypeConfig<T>)
     this = new ScalarType(config);
+
+  public var config(get, never): GraphQLScalarTypeConfig<T>;
+
+  function get_config()
+    return untyped this.config;
 }
 
 abstract GraphQLInterfaceTypeImpl(InterfaceType) {
   inline public function new(config: GraphQLInterfaceTypeConfig)
     this = new InterfaceType(config);
+
+  public var config(get, never): GraphQLInterfaceTypeConfig;
+
+  function get_config()
+    return untyped this.config;
 }
 
 abstract GraphQLUnionTypeImpl(UnionType) {
   inline public function new(config: GraphQLUnionTypeConfig)
     this = new UnionType(config);
-}
 
-abstract GraphQLInputObjectTypeImpl(ObjectType) {
-  inline public function new(config: GraphQLInputObjectTypeConfig)
-    this = new ObjectType(config);
+  public var config(get, never): GraphQLUnionTypeConfig;
+
+  function get_config()
+    return untyped this.config;
 }
 
 abstract GraphQLEnumTypeImpl(EnumType) {
   inline public function new(config: GraphQLEnumTypeConfig)
     this = new EnumType(config);
+
+  public var config(get, never): GraphQLEnumTypeConfig;
+
+  function get_config()
+    return untyped this.config;
+}
+
+abstract GraphQLInputObjectTypeImpl(InputObjectType) {
+  inline public function new(config: GraphQLInputObjectTypeConfig)
+    this = new InputObjectType(config);
+
+  public var config(get, never): GraphQLInputObjectTypeConfig;
+
+  function get_config()
+    return untyped this.config;
 }
 
 abstract GraphQLNonNullImpl<T:GraphQLType>(NonNull) {

@@ -3,6 +3,7 @@
 -cp src
 -cp tests
 
+-D analyzer_optimize
 -dce full
 -D ansi
 -D coreApi

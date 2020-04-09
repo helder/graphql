@@ -1,7 +1,6 @@
 package graphql;
 
 import haxe.extern.EitherType;
-import haxe.DynamicAccess;
 import haxe.ds.ReadOnlyArray;
 import graphql.impl.TypeImpl;
 import graphql.language.AST;
@@ -13,8 +12,8 @@ using tink.CoreApi;
 @:coreType abstract GraphQLType //
   from GraphQLOutputType //
   from GraphQLInputType //
-  from GraphQLList<GraphQLType> //
-  from GraphQLNonNull<GraphQLType> //
+  from GraphQLList<Dynamic> //
+  from GraphQLNonNull<Dynamic> //
 {}
 
 @:coreType abstract GraphQLInputType //
@@ -50,29 +49,29 @@ typedef Thunk<T> = EitherType<(() -> T), T>;
 typedef GraphQLFieldConfigArgumentMap = Record<GraphQLArgumentConfig>;
 
 typedef GraphQLFieldResolver<T> = (source: Dynamic, args: Dynamic,
-  context: Dynamic, info: GraphQLResolveInfo) -> Promise<T>;
+  context: Dynamic, info: GraphQLResolveInfo) -> Dynamic;
 
 abstract Resolver<T>(Function) {
-  @:from public static function from1<T>(func: (source: Dynamic) ->
-    Promise<T>): Resolver<T> {
+  @:from inline public static function from1<T>(func: (source: Dynamic) ->
+    Dynamic): Resolver<T> {
     return cast((source, args, context,
         info) -> Tools.toNativePromise(func(source)));
   }
 
-  @:from public static function from2<T>(func: (source: Dynamic,
-    args: Dynamic) -> Promise<T>): Resolver<T> {
+  @:from inline public static function from2<T>(func: (source: Dynamic,
+    args: Dynamic) -> Dynamic): Resolver<T> {
     return cast((source, args, context,
         info) -> Tools.toNativePromise(func(source, Tools.haxify(args))));
   }
 
-  @:from public static function from3<T>(func: (source: Dynamic,
-    args: Dynamic, context: Dynamic) -> Promise<T>): Resolver<T> {
+  @:from inline public static function from3<T>(func: (source: Dynamic,
+    args: Dynamic, context: Dynamic) -> Dynamic): Resolver<T> {
     return cast((source, args, context,
         info) ->
       Tools.toNativePromise(func(source, Tools.haxify(args), context)));
   }
 
-  @:from public static function from4<T>(func: GraphQLFieldResolver<T>): Resolver<T> {
+  @:from inline public static function from4<T>(func: GraphQLFieldResolver<T>): Resolver<T> {
     return cast((source, args, context,
         info) ->
       Tools.toNativePromise(func(source, Tools.haxify(args), context, info)));

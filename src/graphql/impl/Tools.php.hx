@@ -2,7 +2,12 @@ package graphql.impl;
 
 import php.*;
 
-typedef Struct<T:{}> = NativeStructArray<T>;
+@:forward
+abstract Struct<T:{}>(NativeStructArray<T>) from NativeStructArray<T> {
+  @:op(a.b) inline function get(field: String) {
+    return untyped this[field];
+  }
+}
 
 abstract InputArray<T>(NativeArray) from NativeArray {
   @:from inline static function fromArray<T>(array: Array<T>): InputArray<T>
@@ -19,21 +24,29 @@ abstract Record<T>(Dynamic<T>) {
 @:keep
 private class ArrayOrObject implements JsonSerializable<Dynamic> {
   var arr = new NativeArray();
-  var length: Int;
+  var length: Int = 0;
 
-  public function new(v: NativeArray)
+  public function new(v: NativeArray, once = false)
     Syntax.foreach(v, function(index: Int, item: Dynamic) {
-      arr[index] = Tools.haxify(item);
+      arr[index] = if (once) item else Tools.haxify(item);
       length++;
     });
 
   @:keep @:phpMagic
   function __get(name: String)
-    return arr[name];
+    return Global.array_key_exists(name, arr) ? arr[name] : null;
+
+  @:keep @:phpMagic
+  function __isset(name: String)
+    return Global.array_key_exists(name, arr);
 
   @:keep @:phpMagic
   function __set(name: String, v: Dynamic)
     return arr[name] = v;
+
+  @:keep @:phpMagic
+  function __toString()
+    return '${arr}';
 
   @:keep
   function jsonSerialize()
@@ -41,7 +54,7 @@ private class ArrayOrObject implements JsonSerializable<Dynamic> {
 }
 
 class Tools {
-  inline public static function toNativePromise<T>(promise: tink.core.Promise<T>) {
+  public static function toNativePromise<T>(promise: tink.core.Promise<T>) {
     if (!tink.core.Future.isFuture(promise))
       return cast promise;
     return new graphql.impl.Php.Deferred(() -> {
@@ -54,21 +67,16 @@ class Tools {
     });
   }
 
-  public static function haxify<T>(value: T): T {
+  public static function haxify<T>(value: T, once = false): T {
     if (Global.is_object(value)) {
       var result = new NativeAssocArray();
-      var data = Syntax.array(value);
-      Syntax.foreach(data, function(fieldName: String, fieldValue: Dynamic) {
-        result[fieldName] = haxify(fieldValue);
+      Syntax.foreach(value, function(fieldName: String, fieldValue: Dynamic) {
+        result[fieldName] = if (once) fieldValue else haxify(fieldValue);
       });
-
       return Boot.createAnon(result);
     }
-
-    if (Global.is_array(value)) {
-      return cast new ArrayOrObject(cast value);
-    }
-
+    if (Global.is_array(value))
+      return cast new ArrayOrObject(cast value, once);
     return value;
   }
 }
