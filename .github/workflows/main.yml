@@ -1,11 +1,16 @@
-name: php
+name: CI
 
 on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: 
+          - node
+          - php
     steps:
     - uses: actions/checkout@v2
     - uses: bahmutov/npm-install@v1
-    - run: yarn test:php
+    - run: yarn test:${{ matrix.target }}
