@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "scripts": {
-    "postinstall": "composer self-update && composer install",
+    "postinstall": "lix download && composer self-update && composer install",
     "test": "run-s test:node test:php",
     "test:php": "haxe tests.hxml -php bin/php && cross-env ANSICON=true php bin/php/index.php",
     "test:node": "haxe tests.hxml -lib hxnodejs -js bin/tests.js && cross-env ANSICON=true node bin/tests.js"
