@@ -1,4 +1,4 @@
-name: CI
+name: php
 
 on: [push, pull_request]
 
@@ -8,5 +8,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: bahmutov/npm-install@v1
-    - run: npm t
     - run: yarn test:php
