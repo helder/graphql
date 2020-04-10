@@ -151,11 +151,12 @@ typedef GraphQLScalarTypeConfig<T> = Struct<{
 // https://graphql.org/graphql-js/type/#graphqlinputobjecttype
 
 typedef GraphQLInputObjectType = GraphQLInputObjectTypeImpl;
+typedef GraphQLInputFieldMap = Record<GraphQLInputFieldConfig>;
 
 typedef GraphQLInputObjectTypeConfig = Struct<{
   name: String,
   ?description: String,
-  fields: Thunk<Record<GraphQLInputFieldConfig>>
+  fields: Thunk<GraphQLInputFieldMap>
 }>;
 
 typedef GraphQLInputFieldConfig = Struct<{
@@ -230,6 +231,9 @@ class Type {
     return config;
 
   inline public static function fields(config: GraphQLFieldMap)
+    return config;
+
+  inline public static function inputFields(config: GraphQLInputFieldMap)
     return config;
 
   inline public static function resolver<T>(resolver: Resolver<T>)

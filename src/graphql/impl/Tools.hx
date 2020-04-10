@@ -11,7 +11,7 @@ class Tools {
     return promise.toJsPromise();
   }
 
-  inline public static function haxify<T>(value: T): T {
+  inline public static function haxify<T>(value: T, once = false): T {
     return value;
   }
 }
