@@ -15,6 +15,7 @@ typedef TypeInfo = {
 
 class TypeMap {
   var unique = 0;
+  var afterTyping = false;
   final types = new Map<String, TypeInfo>();
 
   public function new() {}
@@ -29,17 +30,13 @@ class TypeMap {
       for (name => info in types)
         macro @:pos(info.pos) typeMap[$v{name}] = ${info.expr}
     ];
-    final allTypes = [
-      for (name => info in types)
-        macro @:pos(info.pos) typeMap[$v{name}]
-    ];
     return macro @:pos(queryType.pos) {
       final typeMap = new Map<String, graphql.Type.GraphQLType>();
       $b{definitions};
       graphql.Type.schema({
         query: ${query},
         mutation: ${mutation},
-        types: graphql.impl.Tools.haxify($a{allTypes}, true)
+        types: [for (type in typeMap) type]
       });
     }
   }
@@ -51,15 +48,19 @@ class TypeMap {
       build: () -> Expr) {
     return switch types[name] {
       case null:
-        types[name] = {type: type, pos: pos, expr: build()}
-        macro @:pos(pos) cast typeMap[$v{name}];
+        types[name] = {type: type, pos: pos, expr: null}
+        final expr = build(); // work around recursive types
+        types[name].expr = expr;
+        if (!afterTyping) macro @:pos(pos) cast typeMap[$v{name}] else
+          macro @:pos(pos) cast typeMap[$v{name}] = $expr;
       case {type: _.toString() == type.toString() => true}:
         macro @:pos(pos) cast typeMap[$v{name}];
       case {type: other, pos: prev}:
-        pos.warning('Two types share the name "$name"');
+        pos.warning('[graphql] Two types share the name "$name"');
         type.getPosition()
-          .sure().warning('Tried to define (${type.toString()}) ...');
-        prev.error('But was already defined here (${other.toString()})');
+          .sure()
+          .warning('[graphql] Tried to define (${type.toString()}) ...');
+        prev.error('[graphql] But was already defined here (${other.toString()})');
     }
   }
 
@@ -98,7 +99,9 @@ class TypeMap {
           pack: ['haxe', 'ds']
         }, [param]):
         macro @:pos(pos) graphql.Type.list(${defineType(param, pos, input)});
-      case TType(_.get() => {type: t = TType(_, _) | TLazy(_() => TType(_, _))}, _):
+      case TType(_.get() => {
+        type: t = TType(_, _) | TLazy(_() => TType(_, _))
+      }, _):
         defineType(t, pos, input);
       case TAbstract(_.get() => {
         type: inner,
@@ -123,8 +126,8 @@ class TypeMap {
             defineType(applied, pos, input);
         }
       case TAnonymous(_.get() => {fields: fields}):
-        pos.warning('Anonymous objects need to be named.\n' +
-          'Provide a name for ${type.toString()} by using typedef');
+        pos.warning('[graphql] Anonymous objects need to be named.\n'
+          + '[graphql] Provide a name for ${type.toString()} by using typedef');
         final name = 'Anonymous_' + (unique++);
         defineNamedType(name, type, pos, () -> macro $createObject({
           name: $v{name},
@@ -133,16 +136,70 @@ class TypeMap {
       case TLazy(f):
         defineType(f(), pos, input);
       case TAbstract(_.get() => {name: 'Map', pack: ['haxe', 'ds']}, _):
-        pos.error('Cannot create schema for map type ${type.toString()}');
-      case TInst(_.get() => def = {fields: _.get() => fields}, params):
+        pos.error('[graphql] Cannot create schema for map type ${type.toString()}');
+      case TInst(_.get() => def = {
+        isInterface: isInterface,
+        fields: _.get() => fields
+      }, params):
         final applied = type.applyTypeParameters(def.params, params);
-        defineNamedType(id(def.name), applied, pos, () -> macro $createObject({
-          name: $v{id(def.name)},
-          description: $v{def.doc},
-          fields: ${buildFields(applied, fields, pos, input)}
-        }));
+        final factory = if (isInterface) macro graphql.Type.interfaceType else
+          createObject;
+        if (isInterface) {
+          // Generate a type for each implementing class
+          final implementorDefs = BuildTypeInfo.genTypeInfo((types) -> {
+            afterTyping = true;
+            final res = [];
+            for (type in types) {
+              switch type {
+                case TClassDecl(ref):
+                  for (i in ref.get().interfaces) {
+                    final type = i.t.get();
+                    if (type.name == def.name && type.module == def.module) {
+                      final sub = ref.get();
+                      if (sub.isPrivate)
+                        sub.pos.error('[graphql] Cannot create subtype "${sub.name}" '
+                          + 'of interface "${def.name}" because it is private');
+                      res.push(defineType(TInst(ref, []), pos, input));
+                    }
+                  }
+                default:
+              }
+            }
+            return macro(typeMap: Map<String, graphql.Type.GraphQLType>) ->
+              $a{res};
+          });
+          final iName = id(def.name);
+          defineNamedType(iName, applied, pos, () -> macro {
+            typeMap[$v{iName}] = $factory({
+              name: $v{iName},
+              description: $v{def.doc},
+              fields: ${buildFields(applied, fields, pos, input)}
+            });
+            $implementorDefs(typeMap);
+            typeMap[$v{iName}];
+          });
+        } else {
+          final interfaces = [
+            for (i in def.interfaces)
+              defineType(TInst(i.t, []), pos, input)
+          ];
+          final oName = id(def.name);
+          final path = def.module.split('.')
+            .concat([def.name])
+            .join('.')
+            .resolve();
+          final isTypeOf = if (interfaces.length > 0) macro(v,
+            _) -> Std.is(v, $path) else macro null;
+          defineNamedType(oName, applied, pos, () -> macro $factory({
+            name: $v{oName},
+            description: $v{def.doc},
+            fields: ${buildFields(applied, fields, pos, input)},
+            interfaces: $a{interfaces},
+            isTypeOf: $isTypeOf
+          }));
+        }
       default:
-        pos.error('Not a valid GraphQLType: ${type.toString()} (${type})');
+        pos.error('[graphql] Not a valid GraphQLType: ${type.toString()} (${type})');
     }
   }
 
@@ -163,10 +220,10 @@ class TypeMap {
   }
 
   function defineOptionalInputType(type: Type, pos: Position, optional: Bool)
-    return if (optional)
+    return if (optional) defineType(type, pos,
+      true) else macro @:pos(pos) graphql.Type.nonNull(${
       defineType(type, pos, true)
-    else
-      macro @:pos(pos) graphql.Type.nonNull(${defineType(type, pos, true)});
+    });
 
   function buildFields(from: Type, fields: Array<ClassField>, pos: Position,
       input: Bool): Expr {
@@ -175,18 +232,18 @@ class TypeMap {
         if (field.isPublic && !field.type.match(TFun(_, TAbstract(_.get() => {
           name: 'Void',
           pack: []
-        }, _))))
-          {
+        }, _)))) {
             field: field.name,
             expr: if (input) macro @:pos(field.pos) {
-              type:${defineType(field.type, field.pos, input)},
-              description:$v{field.doc}
+              type:${
+                defineType(field.type, field.pos, input)
+              }, description:$v{field.doc}
             } else macro @:pos(field.pos) {
               type:${
                 defineType(field.type, field.pos, input)
-              }, description:$v{field.doc},
-              args:${argsOfType(field.type, field.pos)},
-              resolve:${resolveField(from, field)}
+              }, description:$v{field.doc}, args:${
+                argsOfType(field.type, field.pos)
+              }, resolve:${resolveField(from, field)}
             }
           }
     ]).at(pos);
@@ -209,15 +266,17 @@ class TypeMap {
         ];
         final name = field.name;
         final resolver = (macro value.$name($a{argsExpr}))
-          .func(['value'.toArg(from.toComplex()), 'args'.toArg()]).asExpr();
+          .func(['value'.toArg(from.toComplex()), 'args'.toArg()])
+          .asExpr();
         final returns = ret.toComplex();
         macro($resolver : graphql.Type.Resolver<$returns>);
-      case {kind: FVar(AccNormal, _)}:
-        macro null;
-      case {kind: FVar(AccCall | AccInline, _)}:
+      /*case {kind: FVar(AccNormal, _)}:
+        macro null; */
+      case {kind: FVar(AccNormal | AccCall | AccInline, _)}:
         final name = field.name;
         final resolver = (macro value.$name)
-          .func(['value'.toArg(from.toComplex())]).asExpr();
+          .func(['value'.toArg(from.toComplex())])
+          .asExpr();
         final returns = field.type.toComplex();
         macro($resolver : graphql.Type.Resolver<$returns>);
       case v:

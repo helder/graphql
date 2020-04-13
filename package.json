@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "postinstall": "lix download && composer self-update && composer install",

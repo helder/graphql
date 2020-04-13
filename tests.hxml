@@ -1,9 +1,10 @@
 -lib tink_unittest
+-lib helder.graphql
 
--cp src
 -cp tests
 
 -D analyzer_optimize
+-D genes.no-extern-init-warning
 -dce full
 -D ansi
 -D coreApi

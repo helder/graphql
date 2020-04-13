@@ -9,7 +9,12 @@ class Run {
     #if php
     php.Global.require_once('vendor/autoload.php');
     #end
-    Runner.run(TestBatch.make([new TestExecute()]), new BasicReporter(new AnsiFormatter()))
-      .handle(Runner.exit);
+    Runner.run(TestBatch.make([
+      //
+      //
+      new TestRecursion(),
+      new TestInputObject(),
+      new TestInterfaces()
+    ]), new BasicReporter(new AnsiFormatter())).handle(Runner.exit);
   }
 }
