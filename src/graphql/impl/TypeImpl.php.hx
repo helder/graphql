@@ -25,9 +25,9 @@ abstract GraphQLObjectTypeImpl(ObjectType) {
     return untyped this.config;
 }
 
-abstract GraphQLScalarTypeImpl<T>(ScalarType) {
+abstract GraphQLScalarTypeImpl<T>(CustomScalarType) {
   inline public function new(config: GraphQLScalarTypeConfig<T>)
-    this = new ScalarType(config);
+    this = new CustomScalarType(config);
 
   public var config(get, never): GraphQLScalarTypeConfig<T>;
 

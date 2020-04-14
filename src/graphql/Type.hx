@@ -67,14 +67,14 @@ abstract Resolver<T>(Function) {
   @:from inline public static function from3<T>(func: (source: Dynamic,
     args: Dynamic, context: Dynamic) -> Dynamic): Resolver<T> {
     return cast((source, args, context,
-        info) ->
-      Tools.toNativePromise(func(source, Tools.haxify(args), context)));
+        info) -> Tools.toNativePromise(func(source, Tools.haxify(args),
+        context)));
   }
 
   @:from inline public static function from4<T>(func: GraphQLFieldResolver<T>): Resolver<T> {
     return cast((source, args, context,
-        info) ->
-      Tools.toNativePromise(func(source, Tools.haxify(args), context, info)));
+        info) -> Tools.toNativePromise(func(source, Tools.haxify(args), context,
+        info)));
   }
 }
 
@@ -144,7 +144,7 @@ typedef GraphQLScalarType<T> = GraphQLScalarTypeImpl<T>;
 typedef GraphQLScalarTypeConfig<T> = Struct<{
   name: String,
   ?description: String,
-  serialize: (value: Dynamic) -> Null<T>,
+  serialize: (value: T) -> Dynamic,
   ?parseValue: (value: Dynamic) -> Null<T>
 }>;
 
@@ -202,6 +202,9 @@ class Type {
 
   inline public static function id(): GraphQLScalarType<Dynamic>
     return TypeImpl.id();
+
+  inline public static function scalar<T>(config: GraphQLScalarTypeConfig<T>)
+    return new GraphQLScalarType(config);
 
   inline public static function schema(config: GraphQLSchemaConfig)
     return new GraphQLSchema(config);
