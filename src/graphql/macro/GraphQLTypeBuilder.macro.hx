@@ -99,10 +99,6 @@ class TypeMap {
           pack: ['haxe', 'ds']
         }, [param]):
         macro @:pos(pos) graphql.Type.list(${defineType(param, pos, input)});
-      case TType(_.get() => {
-        type: t = TType(_, _) | TLazy(_() => TType(_, _))
-      }, _):
-        defineType(t, pos, input);
       case TAbstract(_.get() => {
         type: inner,
         name: name,
