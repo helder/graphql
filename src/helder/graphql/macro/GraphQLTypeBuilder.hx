@@ -1,4 +1,4 @@
-package graphql.macro;
+package helder.graphql.macro;
 
 class GraphQLTypeBuilder {
   macro public static function schemaOfType(e) {

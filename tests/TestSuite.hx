@@ -1,6 +1,6 @@
 package tests;
 
-import graphql.GraphQL;
+import helder.GraphQL;
 
 class TestSuite {
   public function new() {}
@@ -10,8 +10,8 @@ class TestSuite {
       case {errors: null | [], data: data}:
         return data;
       case {errors: errors}:
-        return
-          Failure(Error.withData([for (error in errors) error.message].join('\n'), errors));
+        return Failure(Error.withData([for (error in errors) error.message]
+          .join('\n'), errors));
     }
   }
 }

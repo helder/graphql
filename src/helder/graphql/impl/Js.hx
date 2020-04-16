@@ -1,4 +1,4 @@
-package graphql.impl;
+package helder.graphql.impl;
 
 import haxe.Constraints.Constructible;
 import haxe.DynamicAccess;
@@ -586,7 +586,8 @@ interface GraphQLNullableType {}
 @:noCompletion typedef _GraphQLNonNull<T:(GraphQLNullableType)> = Constructible<GraphQLNonNull<T>>;
 
 @:jsRequire('graphql/type/definition', 'GraphQLScalarType')
-@:noCompletion extern class GraphQLScalarType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLScalarType implements GraphQLType
+    implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var serialize: GraphQLScalarSerializer<Dynamic>;
@@ -733,7 +734,8 @@ interface GraphQLNullableType {}
 };
 
 @:jsRequire('graphql/type/definition', 'GraphQLInterfaceType')
-@:noCompletion extern class GraphQLInterfaceType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLInterfaceType implements GraphQLType
+    implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var resolveType: Maybe<GraphQLTypeResolver<Dynamic, Dynamic, Dynamic>>;
@@ -753,7 +755,7 @@ interface GraphQLNullableType {}
 @:noCompletion typedef GraphQLTypeResolver<TSource, TContext,
   TArgs> = (value: TSource, context: TContext, info: GraphQLResolveInfo,
   abstractType: GraphQLAbstractType) ->
-  PromiseOrValue<Maybe<EitherType<GraphQLObjectType, String>>>;
+    PromiseOrValue<Maybe<EitherType<GraphQLObjectType, String>>>;
 
 @:noCompletion typedef GraphQLInterfaceTypeConfig<TSource, TContext, TArgs> = {
   var name: String;
@@ -771,7 +773,8 @@ interface GraphQLNullableType {}
 };
 
 @:jsRequire('graphql/type/definition', 'GraphQLUnionType')
-@:noCompletion extern class GraphQLUnionType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLUnionType implements GraphQLType
+    implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var resolveType: Maybe<GraphQLTypeResolver<Dynamic, Dynamic, Dynamic>>;
@@ -802,7 +805,8 @@ interface GraphQLNullableType {}
 };
 
 @:jsRequire('graphql/type/definition', 'GraphQLEnumType')
-@:noCompletion extern class GraphQLEnumType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLEnumType implements GraphQLType
+    implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
@@ -860,7 +864,8 @@ interface GraphQLNullableType {}
 };
 
 @:jsRequire('graphql/type/definition', 'GraphQLInputObjectType')
-@:noCompletion extern class GraphQLInputObjectType implements GraphQLType implements GraphQLNullableType {
+@:noCompletion extern class GraphQLInputObjectType implements GraphQLType
+    implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
   var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;

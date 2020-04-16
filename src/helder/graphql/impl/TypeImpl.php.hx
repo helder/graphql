@@ -1,9 +1,9 @@
-package graphql.impl;
+package helder.graphql.impl;
 
 import php.*;
-import graphql.impl.Php;
-import graphql.Type;
-import graphql.Type.GraphQLType;
+import helder.graphql.impl.Php;
+import helder.graphql.Type;
+import helder.graphql.Type.GraphQLType;
 
 abstract GraphQLSchemaImpl(Schema) {
   inline public function new(config: GraphQLSchemaConfig)
@@ -85,4 +85,4 @@ abstract GraphQLListImpl<T:GraphQLType>(ListOfType) {
     this = new ListOfType(cast type);
 }
 
-typedef TypeImpl = graphql.impl.Php.Type;
+typedef TypeImpl = helder.graphql.impl.Php.Type;

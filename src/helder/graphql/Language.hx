@@ -1,7 +1,7 @@
-package graphql;
+package helder.graphql;
 
-import graphql.impl.LanguageImpl;
-import graphql.language.AST;
+import helder.graphql.impl.LanguageImpl;
+import helder.graphql.language.AST;
 
 using tink.CoreApi;
 

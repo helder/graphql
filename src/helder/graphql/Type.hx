@@ -1,10 +1,10 @@
-package graphql;
+package helder.graphql;
 
 import haxe.extern.EitherType;
 import haxe.ds.ReadOnlyArray;
-import graphql.impl.TypeImpl;
-import graphql.language.AST;
-import graphql.impl.Tools;
+import helder.graphql.impl.TypeImpl;
+import helder.graphql.language.AST;
+import helder.graphql.impl.Tools;
 import haxe.Constraints.Function;
 
 using tink.CoreApi;
@@ -123,7 +123,7 @@ typedef GraphQLInterfaceTypeConfig = Struct<{
   name: String,
   ?description: String,
   fields: Thunk<GraphQLFieldMap>,
-  ?resolveType: (value: Dynamic) -> GraphQLObjectType,
+  ?resolveType: (value: Dynamic) -> GraphQLObjectType
 }>;
 
 // https://graphql.org/graphql-js/type/#graphqluniontype

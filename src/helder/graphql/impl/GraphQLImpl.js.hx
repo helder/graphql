@@ -1,6 +1,6 @@
-package graphql.impl;
+package helder.graphql.impl;
 
-import graphql.impl.Js;
+import helder.graphql.impl.Js;
 
 using tink.CoreApi;
 

@@ -1,4 +1,4 @@
-package graphql.macro;
+package helder.graphql.macro;
 
 import haxe.macro.Expr;
 import haxe.macro.Type;
@@ -31,9 +31,9 @@ class TypeMap {
         macro @:pos(info.pos) typeMap[$v{name}] = ${info.expr}
     ];
     return macro @:pos(queryType.pos) {
-      final typeMap = new Map<String, graphql.Type.GraphQLType>();
+      final typeMap = new Map<String, helder.graphql.Type.GraphQLType>();
       $b{definitions};
-      graphql.Type.schema({
+      helder.graphql.Type.schema({
         query: ${query},
         mutation: ${mutation},
         types: [for (type in typeMap) type]
@@ -65,8 +65,8 @@ class TypeMap {
   }
 
   public function defineType(type: Type, pos: Position, input: Bool): Expr {
-    final createObject = if (input) macro graphql.Type.inputObject else
-      macro graphql.Type.object;
+    final createObject = if (input) macro helder.graphql.Type.inputObject else
+      macro helder.graphql.Type.object;
     final id = (name: String) -> (input ? 'Input$name' : name);
     return switch type {
       case TFun(_, ret):
@@ -84,13 +84,13 @@ class TypeMap {
       }, [param]):
         defineType(param, pos, input);
       case TAbstract(_.get() => {name: 'Float', pack: []}, _):
-        macro @:pos(pos) graphql.Type.float();
+        macro @:pos(pos) helder.graphql.Type.float();
       case TAbstract(_.get() => {name: 'Int', pack: []}, _):
-        macro @:pos(pos) graphql.Type.int();
+        macro @:pos(pos) helder.graphql.Type.int();
       case TAbstract(_.get() => {name: 'Bool', pack: []}, _):
-        macro @:pos(pos) graphql.Type.boolean();
+        macro @:pos(pos) helder.graphql.Type.boolean();
       case TInst(_.get() => {name: 'String', pack: []}, _):
-        macro @:pos(pos) graphql.Type.string();
+        macro @:pos(pos) helder.graphql.Type.string();
       case TInst(_.get() => def = {
         name: 'Array',
         pack: []
@@ -98,7 +98,8 @@ class TypeMap {
           name: 'List',
           pack: ['haxe', 'ds']
         }, [param]):
-        macro @:pos(pos) graphql.Type.list(${defineType(param, pos, input)});
+        macro @:pos(pos) helder.graphql.Type.list(${defineType(param, pos,
+          input)});
       case TAbstract(_.get() => {
         type: inner,
         name: name,
@@ -138,8 +139,8 @@ class TypeMap {
         fields: _.get() => fields
       }, params):
         final applied = type.applyTypeParameters(def.params, params);
-        final factory = if (isInterface) macro graphql.Type.interfaceType else
-          createObject;
+        final factory = if (isInterface)
+          macro helder.graphql.Type.interfaceType else createObject;
         if (isInterface) {
           // Generate a type for each implementing class
           final implementorDefs = BuildTypeInfo.genTypeInfo((types) -> {
@@ -161,8 +162,8 @@ class TypeMap {
                 default:
               }
             }
-            return macro(typeMap: Map<String, graphql.Type.GraphQLType>) ->
-              $a{res};
+            return macro(typeMap: Map<String,
+              helder.graphql.Type.GraphQLType>) -> $a{res};
           });
           final iName = id(def.name);
           defineNamedType(iName, applied, pos, () -> macro {
@@ -217,7 +218,7 @@ class TypeMap {
 
   function defineOptionalInputType(type: Type, pos: Position, optional: Bool)
     return if (optional) defineType(type, pos,
-      true) else macro @:pos(pos) graphql.Type.nonNull(${
+      true) else macro @:pos(pos) helder.graphql.Type.nonNull(${
       defineType(type, pos, true)
     });
 
@@ -243,8 +244,8 @@ class TypeMap {
             }
           }
     ]).at(pos);
-    final fieldFactory = if (input) macro graphql.Type.inputFields else
-      macro graphql.Type.fields;
+    final fieldFactory = if (input) macro helder.graphql.Type.inputFields else
+      macro helder.graphql.Type.fields;
     return macro @:pos(pos) () -> $fieldFactory($fieldsExpr);
   }
 
@@ -265,7 +266,7 @@ class TypeMap {
           .func(['value'.toArg(from.toComplex()), 'args'.toArg()])
           .asExpr();
         final returns = ret.toComplex();
-        macro($resolver : graphql.Type.Resolver<$returns>);
+        macro($resolver : helder.graphql.Type.Resolver<$returns>);
       /*case {kind: FVar(AccNormal, _)}:
         macro null; */
       case {kind: FVar(AccNormal | AccCall | AccInline, _)}:
@@ -274,7 +275,7 @@ class TypeMap {
           .func(['value'.toArg(from.toComplex())])
           .asExpr();
         final returns = field.type.toComplex();
-        macro($resolver : graphql.Type.Resolver<$returns>);
+        macro($resolver : helder.graphql.Type.Resolver<$returns>);
       case v:
         field.pos.error('Could not resolve field: ${v}');
     }

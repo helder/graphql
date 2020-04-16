@@ -1,4 +1,4 @@
-package graphql.impl;
+package helder.graphql.impl;
 
 import php.*;
 

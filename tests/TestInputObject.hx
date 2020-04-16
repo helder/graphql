@@ -1,11 +1,11 @@
 package tests;
 
-import graphql.Language;
-import graphql.GraphQL;
-import graphql.Type;
-import graphql.Type.*;
+import helder.graphql.Language;
+import helder.GraphQL;
+import helder.graphql.Type;
+import helder.graphql.Type.*;
 import tink.unit.Assert.*;
-import graphql.macro.GraphQLTypeBuilder;
+import helder.graphql.macro.GraphQLTypeBuilder;
 
 private typedef Point = {
   x: Int,

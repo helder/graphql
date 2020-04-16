@@ -1,4 +1,4 @@
-package graphql.macro;
+package helder.graphql.macro;
 
 import haxe.macro.Expr;
 import haxe.macro.Type;

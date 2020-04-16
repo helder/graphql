@@ -1,4 +1,4 @@
-package graphql.impl;
+package helder.graphql.impl;
 
 import php.*;
 
@@ -57,7 +57,7 @@ class Tools {
   public static function toNativePromise<T>(promise: tink.core.Promise<T>) {
     if (!tink.core.Future.isFuture(promise))
       return cast promise;
-    return new graphql.impl.Php.Deferred(() -> {
+    return new helder.graphql.impl.Php.Deferred(() -> {
       var res: Dynamic = null;
       promise.handle(outcome -> switch outcome {
         case Success(v): res = v;
