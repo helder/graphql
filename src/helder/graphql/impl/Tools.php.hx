@@ -22,7 +22,8 @@ abstract Record<T>(Dynamic<T>) {
 }
 
 @:keep
-private class ArrayOrObject implements JsonSerializable<Dynamic> {
+private class ArrayOrObject implements JsonSerializable<Dynamic>
+    implements php.NativeIterator<String, Dynamic> {
   var arr = new NativeArray();
   var length: Int = 0;
 
@@ -51,6 +52,26 @@ private class ArrayOrObject implements JsonSerializable<Dynamic> {
   @:keep
   function jsonSerialize()
     return arr;
+
+  @:keep
+  public function current()
+    return Global.current(arr);
+
+  @:keep
+  public function key()
+    return Global.key(arr);
+
+  @:keep
+  public function next()
+    return Global.next(arr);
+
+  @:keep
+  public function rewind()
+    return Global.reset(arr);
+
+  @:keep
+  public function valid()
+    return key() != null;
 }
 
 class Tools {
