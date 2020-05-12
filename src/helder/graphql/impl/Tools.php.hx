@@ -50,7 +50,7 @@ private class ArrayOrObject implements JsonSerializable<Dynamic>
     return '${arr}';
 
   @:keep
-  function jsonSerialize()
+  public function jsonSerialize()
     return arr;
 
   @:keep
