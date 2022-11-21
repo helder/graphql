@@ -47,7 +47,7 @@ import haxe.extern.EitherType;
   var column: Float;
 };
 
-@:jsRequire('graphql/language/source')
+@:jsRequire('graphql', 'Source')
 @:noCompletion extern class Source {
   var body: String;
   var name: String;
@@ -563,7 +563,7 @@ interface GraphQLType {}
 interface GraphQLNullableType {}
 @:noCompletion typedef Maybe<T> = Null<T>;
 
-@:jsRequire('graphql/type/definition', 'GraphQLList')
+@:jsRequire('graphql', 'GraphQLList')
 @:noCompletion extern class GraphQLList<T /*:(GraphQLType)*/> {
   function new(type: T): Void;
   var ofType: T;
@@ -574,7 +574,7 @@ interface GraphQLNullableType {}
 
 @:noCompletion typedef _GraphQLList<T:(GraphQLType)> = Constructible<GraphQLList<T>>;
 
-@:jsRequire('graphql/type/definition', 'GraphQLNonNull')
+@:jsRequire('graphql', 'GraphQLNonNull')
 @:noCompletion extern class GraphQLNonNull<T /*:(GraphQLNullableType)*/> {
   function new(type: T): Void;
   var ofType: T;
@@ -585,7 +585,7 @@ interface GraphQLNullableType {}
 
 @:noCompletion typedef _GraphQLNonNull<T:(GraphQLNullableType)> = Constructible<GraphQLNonNull<T>>;
 
-@:jsRequire('graphql/type/definition', 'GraphQLScalarType')
+@:jsRequire('graphql', 'GraphQLScalarType')
 @:noCompletion extern class GraphQLScalarType implements GraphQLType
     implements GraphQLNullableType {
   var name: String;
@@ -628,7 +628,7 @@ interface GraphQLNullableType {}
   var extensionASTNodes: Maybe<ReadonlyArray<ScalarTypeExtensionNode>>;
 };
 
-@:jsRequire('graphql/type/definition', 'GraphQLObjectType')
+@:jsRequire('graphql', 'GraphQLObjectType')
 @:noCompletion extern class GraphQLObjectType /*<TSource, TContext, TArgs>*/ implements GraphQLType implements GraphQLNullableType {
   var name: String;
   var description: Maybe<String>;
@@ -733,7 +733,7 @@ interface GraphQLNullableType {}
   var astNode: Maybe<InputValueDefinitionNode>;
 };
 
-@:jsRequire('graphql/type/definition', 'GraphQLInterfaceType')
+@:jsRequire('graphql', 'GraphQLInterfaceType')
 @:noCompletion extern class GraphQLInterfaceType implements GraphQLType
     implements GraphQLNullableType {
   var name: String;
@@ -772,7 +772,7 @@ interface GraphQLNullableType {}
   var extensionASTNodes: Maybe<ReadonlyArray<InterfaceTypeExtensionNode>>;
 };
 
-@:jsRequire('graphql/type/definition', 'GraphQLUnionType')
+@:jsRequire('graphql', 'GraphQLUnionType')
 @:noCompletion extern class GraphQLUnionType implements GraphQLType
     implements GraphQLNullableType {
   var name: String;
@@ -804,7 +804,7 @@ interface GraphQLNullableType {}
   var extensionASTNodes: Maybe<ReadonlyArray<UnionTypeExtensionNode>>;
 };
 
-@:jsRequire('graphql/type/definition', 'GraphQLEnumType')
+@:jsRequire('graphql', 'GraphQLEnumType')
 @:noCompletion extern class GraphQLEnumType implements GraphQLType
     implements GraphQLNullableType {
   var name: String;
@@ -863,7 +863,7 @@ interface GraphQLNullableType {}
   var astNode: Maybe<EnumValueDefinitionNode>;
 };
 
-@:jsRequire('graphql/type/definition', 'GraphQLInputObjectType')
+@:jsRequire('graphql', 'GraphQLInputObjectType')
 @:noCompletion extern class GraphQLInputObjectType implements GraphQLType
     implements GraphQLNullableType {
   var name: String;
@@ -916,7 +916,7 @@ interface GraphQLNullableType {}
   var astNode: Maybe<InputValueDefinitionNode>;
 };
 
-@:jsRequire('graphql/type/definition')
+@:jsRequire('graphql')
 @:noCompletion extern class DefinitionTopLevel {
   static function isType(type: Dynamic): Bool;
   static function assertType(type: Dynamic): GraphQLType;
@@ -961,7 +961,7 @@ interface GraphQLNullableType {}
   static function isRequiredInputField(field: GraphQLInputField): Bool;
 }
 
-@:jsRequire('graphql/type/schema', 'GraphQLSchema')
+@:jsRequire('graphql', 'GraphQLSchema')
 @:noCompletion extern class GraphQLSchema {
   var extensions: Maybe<Readonly<Record_<String, Dynamic>>>;
   var astNode: Maybe<SchemaDefinitionNode>;
@@ -1006,7 +1006,7 @@ interface GraphQLNullableType {}
   var extensionASTNodes: Maybe<ReadonlyArray<SchemaExtensionNode>>;
 };
 
-@:jsRequire('graphql/type/schema')
+@:jsRequire('graphql')
 @:noCompletion extern class SchemaTopLevel {
   static function isSchema(schema: Dynamic): Bool;
   static function assertSchema(schema: Dynamic): GraphQLSchema;
@@ -1045,7 +1045,7 @@ interface GraphQLNullableType {}
       Dynamic>>): Promise<ExecutionResult<TData>>;
 }
 
-@:jsRequire('graphql/execution')
+@:jsRequire('graphql')
 @:noCompletion extern class ExecuteTopLevel {
   static function execute<TData>(schema: GraphQLSchema,
     document: DocumentNode, ?rootValue: Dynamic, ?contextValue: Dynamic,
@@ -1066,7 +1066,7 @@ interface GraphQLNullableType {}
   var experimentalFragmentVariables: Bool;
 };
 
-@:jsRequire('graphql/language/parser')
+@:jsRequire('graphql')
 @:noCompletion extern class ParserTopLevel {
   static function parse(source: haxe.extern.EitherType<String, Source>,
     ?options: ParseOptions): DocumentNode;

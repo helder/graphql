@@ -84,7 +84,7 @@ abstract GraphQLListImpl<T:GraphQLType>(GraphQLList<T>) {
     this = new GraphQLList(type);
 }
 
-@:jsRequire('graphql/type')
+@:jsRequire('graphql')
 private extern class GraphQLScalarTypes {
   static var GraphQLInt: GraphQLScalarType;
   static var GraphQLFloat: GraphQLScalarType;
